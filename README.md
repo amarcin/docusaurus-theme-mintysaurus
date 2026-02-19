@@ -36,12 +36,15 @@ That's it. Rebuild your site.
 | Component | What it does |
 |---|---|
 | `TOC` | "On this page" heading with icon |
+| `TOCItems` | Custom scroll-aware TOC highlight hook for the inset panel |
 | `TOCItems/Tree` | Flattens nested h2/h3 into single-level list |
 | `DocBreadcrumbs` | Hidden (returns null) |
 | `DocItem/Content` | Renders front matter `description` below h1 |
 | `DocItem/Footer` | Simplified — tags only |
-| `Footer/Layout` | Border-top separator |
+| `Footer/Layout` | Border-top separator, hidden on docs pages |
 | `Heading` | Hash link anchors on h2+ |
+
+**Inset panel layout** — the signature Mintlify look. The content + TOC area renders as a rounded white card with its own scroll, separated from the navbar and sidebar which sit on the page background. The sidebar and content scroll independently.
 
 ## Customization
 
