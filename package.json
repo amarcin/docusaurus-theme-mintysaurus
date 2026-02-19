@@ -1,0 +1,23 @@
+{
+  "name": "docusaurus-theme-mintysaurus",
+  "version": "1.0.0",
+  "description": "A Mintlify-style theme for Docusaurus",
+  "main": "src/index.js",
+  "peerDependencies": {
+    "@docusaurus/core": "^3.9.0",
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amarcin/docusaurus-theme-mintysaurus"
+  },
+  "keywords": [
+    "docusaurus",
+    "docusaurus-theme",
+    "mintlify",
+    "documentation",
+    "theme"
+  ]
+}
