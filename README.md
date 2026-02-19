@@ -39,7 +39,7 @@ That's it. Rebuild your site.
 | `TOCItems` | Custom scroll-aware TOC highlight hook for the inset panel |
 | `TOCItems/Tree` | Flattens nested h2/h3 into single-level list |
 | `DocBreadcrumbs` | Hidden (returns null) |
-| `DocItem/Content` | Renders front matter `description` below h1 |
+| `DocItem/Content` | Category eyebrow (auto-detected) + description below h1 |
 | `DocItem/Footer` | Simplified — tags only |
 | `Footer/Layout` | Border-top separator, hidden on docs pages |
 | `Heading` | Hash link anchors on h2+ |
