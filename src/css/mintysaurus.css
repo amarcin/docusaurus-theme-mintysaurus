@@ -279,7 +279,8 @@ code { background: var(--ifm-code-background); border: none; font-size: var(--if
 .table-of-contents li { padding: 0; margin: 0; }
 .table-of-contents__link { font-size: 0.875rem; font-weight: 500; line-height: 24px; display: block; padding: 4px 0 4px 16px; border-left: 1px solid rgba(10, 13, 12, 0.05); color: var(--mintlify-muted); transition: border-color 0.15s, color 0.15s; }
 [data-theme='dark'] .table-of-contents__link { border-left-color: rgba(255, 255, 255, 0.1); }
-.table-of-contents__link:hover { color: var(--mintlify-heading-color); text-decoration: none; }
+.table-of-contents__link:hover { color: var(--mintlify-heading-color); border-left-color: rgba(10, 13, 12, 0.2); text-decoration: none; }
+[data-theme='dark'] .table-of-contents__link:hover { border-left-color: rgba(255, 255, 255, 0.2); }
 .table-of-contents__link--active,
 .table-of-contents__link--active:hover { font-weight: 500; border-left-color: var(--ifm-color-primary); color: var(--ifm-color-primary); }
 .table-of-contents li.toc-h3 .table-of-contents__link { padding-left: 2rem; font-weight: 400; }
