@@ -143,12 +143,12 @@ body { letter-spacing: normal; -webkit-font-smoothing: antialiased; -moz-osx-fon
 
 @media (min-width: 997px) {
   .navbar { background: var(--mintlify-page-bg); backdrop-filter: none; -webkit-backdrop-filter: none; }
-  html.docs-wrapper .main-wrapper {
+  [class*='docsWrapper'] { margin: 0 12px; }
+  [class*='docRoot'] {
     background: var(--mintlify-panel-bg);
     border: 1px solid var(--mintlify-border);
+    border-bottom: none;
     border-radius: 12px 12px 0 0;
-    margin: 0 12px;
-    overflow: hidden;
   }
   html.docs-wrapper .theme-layout-footer { border-top: none; }
   .theme-doc-sidebar-container { border-right: none !important; }
