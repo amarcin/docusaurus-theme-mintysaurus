@@ -207,7 +207,7 @@ nav.menu { padding: 0.75rem 0 0.75rem 1rem; }
    ═══════════════════════════════════════════════════════════ */
 
 @media (min-width: 997px) {
-  .container.padding-top--md { padding-top: 3rem !important; }
+  .container.padding-top--md { padding-top: 3.5rem !important; }
   .container.padding-bottom--lg { padding-bottom: 3rem !important; }
   [class*='docMainContainer'] .container { padding-left: 0 !important; padding-right: 0 !important; }
   [class*='docMainContainer'] { padding: 0 4rem; max-width: calc(100% - 264px) !important; }
@@ -247,6 +247,7 @@ nav.menu { padding: 0.75rem 0 0.75rem 1rem; }
 
 /* Eyebrow: sidebar category label above h1 (Mintlify's "Get started" green text) */
 .mintlify-eyebrow { font-size: 0.875rem; font-weight: 600; line-height: 20px; color: var(--ifm-color-primary); margin: 0 0 10px 0; }
+.theme-doc-markdown .mintlify-eyebrow { color: var(--ifm-color-primary); }
 
 .theme-doc-markdown h1 { font-size: 1.875rem; font-weight: 700; line-height: 1.2; margin-bottom: 0.5rem; border: none; letter-spacing: -0.025em; color: var(--mintlify-heading-color); }
 
