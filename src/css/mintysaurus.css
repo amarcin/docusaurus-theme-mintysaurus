@@ -245,11 +245,12 @@ nav.menu { padding: 0.75rem 0 0.75rem 1rem; }
    TYPOGRAPHY
    ═══════════════════════════════════════════════════════════ */
 
-.mintlify-section-label { font-size: 0.875rem; font-weight: 600; text-transform: none; letter-spacing: normal; color: var(--ifm-color-primary); margin-bottom: 0.25rem; }
+/* Eyebrow: sidebar category label above h1 (Mintlify's "Get started" green text) */
+.mintlify-eyebrow { font-size: 0.875rem; font-weight: 600; line-height: 20px; color: var(--ifm-color-primary); margin: 0 0 10px 0; }
 
 .theme-doc-markdown h1 { font-size: 1.875rem; font-weight: 700; line-height: 1.2; margin-bottom: 0.5rem; border: none; letter-spacing: -0.025em; color: var(--mintlify-heading-color); }
 
-.mintlify-description { font-size: 1.125rem; color: var(--mintlify-body-color); line-height: 1.556; margin-bottom: 2rem; margin-top: 0; padding-bottom: 0; border-bottom: none; }
+.mintlify-description { font-size: 1.125rem; color: var(--mintlify-body-color); line-height: 1.556; margin-bottom: 2rem; margin-top: 0.5rem; padding-bottom: 0; border-bottom: none; }
 
 .theme-doc-markdown h2 { font-size: 1.5rem; font-weight: 600; line-height: 1.333; margin-top: 3rem; margin-bottom: 1rem; padding-bottom: 0; border-bottom: none; letter-spacing: -0.025em; color: #111827; }
 [data-theme='dark'] .theme-doc-markdown h2 { color: var(--mintlify-heading-color); }

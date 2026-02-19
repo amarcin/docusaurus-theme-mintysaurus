@@ -1,5 +1,6 @@
 import React from 'react';
 import {useDoc} from '@docusaurus/plugin-content-docs/client';
+import {useSidebarBreadcrumbs} from '@docusaurus/plugin-content-docs/client';
 import Heading from '@theme/Heading';
 import MDXContent from '@theme/MDXContent';
 import clsx from 'clsx';
@@ -11,25 +12,32 @@ function useSyntheticTitle() {
   return shouldRender ? metadata.title : null;
 }
 
+function useCategoryLabel() {
+  const breadcrumbs = useSidebarBreadcrumbs();
+  if (!breadcrumbs || breadcrumbs.length === 0) return null;
+  // Find the nearest category in the breadcrumb trail
+  const category = breadcrumbs.find(item => item.type === 'category');
+  return category?.label || null;
+}
+
 export default function DocItemContent({children}) {
   const syntheticTitle = useSyntheticTitle();
-  const {metadata, frontMatter} = useDoc();
-  const description = metadata.description;
-  const sectionLabel = frontMatter.sidebar_class_name || null;
+  const {metadata} = useDoc();
+  const categoryLabel = useCategoryLabel();
 
   return (
     <div className={clsx(ThemeClassNames.docs.docMarkdown, 'markdown')}>
-      {syntheticTitle && (
+      {categoryLabel && (
+        <p className="mintlify-eyebrow">{categoryLabel}</p>
+      )}
+      {syntheticTitle ? (
         <header>
-          {sectionLabel && (
-            <p className="mintlify-section-label">{sectionLabel}</p>
-          )}
           <Heading as="h1">{syntheticTitle}</Heading>
-          {description && (
-            <p className="mintlify-description">{description}</p>
+          {metadata.description && (
+            <p className="mintlify-description">{metadata.description}</p>
           )}
         </header>
-      )}
+      ) : null}
       <MDXContent>{children}</MDXContent>
     </div>
   );
