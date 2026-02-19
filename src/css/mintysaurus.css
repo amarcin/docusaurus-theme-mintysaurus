@@ -78,6 +78,8 @@
   --mintlify-content-max-width: 576px;
   --mintlify-body-color: #3f4140;
   --mintlify-heading-color: #171a18;
+  --mintlify-page-bg: #f5f5f4;
+  --mintlify-panel-bg: #ffffff;
 }
 
 [data-theme='dark'] {
@@ -109,6 +111,8 @@
   --mintlify-sidebar-active-bg: rgba(52, 211, 153, 0.08);
   --mintlify-body-color: #a1a1aa;
   --mintlify-heading-color: #e4e4e7;
+  --mintlify-page-bg: #09090b;
+  --mintlify-panel-bg: #0f1117;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -116,7 +120,7 @@
    ═══════════════════════════════════════════════════════════ */
 
 html { transition: background-color 0.2s; }
-body { letter-spacing: normal; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body { letter-spacing: normal; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; background: var(--mintlify-page-bg); }
 
 /* ═══════════════════════════════════════════════════════════
    NAVBAR — 56px, no border, backdrop blur, items right
@@ -132,6 +136,24 @@ body { letter-spacing: normal; -webkit-font-smoothing: antialiased; -moz-osx-fon
 [data-theme='dark'] .navbar__link:hover { background: rgba(255, 255, 255, 0.06); }
 .navbar__link--active { color: var(--mintlify-heading-color); font-weight: 500; }
 .navbar__link svg[aria-label] { display: none; }
+
+/* ═══════════════════════════════════════════════════════════
+   INSET PANEL — rounded card below navbar (Mintlify signature)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (min-width: 997px) {
+  .navbar { background: var(--mintlify-page-bg); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  html.docs-wrapper .main-wrapper {
+    background: var(--mintlify-panel-bg);
+    border: 1px solid var(--mintlify-border);
+    border-radius: 12px 12px 0 0;
+    margin: 0 12px;
+    overflow: hidden;
+  }
+  html.docs-wrapper .theme-layout-footer { border-top: none; }
+  .theme-doc-sidebar-container { border-right: none !important; }
+  .theme-doc-sidebar-container + main { border-left: 1px solid var(--mintlify-border-solid); }
+}
 
 /* ═══════════════════════════════════════════════════════════
    SIDEBAR — 264px, no right border
@@ -156,10 +178,6 @@ nav.menu { padding: 0.75rem 0 0.75rem 1rem; }
 .menu__list-item-collapsible:hover { background: transparent; }
 .menu__link--sublist-caret::after, .menu__caret::before { display: none; }
 .menu__list .menu__list { padding-left: 0; margin-top: 0.125rem; }
-
-@media (min-width: 997px) {
-  .theme-doc-sidebar-container + main { border-left: 1px solid var(--mintlify-border-solid); }
-}
 
 /* ═══════════════════════════════════════════════════════════
    CONTENT AREA — centered, max-width 576px
@@ -271,7 +289,7 @@ button[class*='copyButton'] { border-radius: 6px; }
    FOOTER
    ═══════════════════════════════════════════════════════════ */
 
-.footer { font-size: 0.8125rem; padding: 1.25rem 0; color: var(--mintlify-muted); }
+.footer { font-size: 0.8125rem; padding: 1.25rem 0; color: var(--mintlify-muted); border-top: 1px solid var(--mintlify-border-solid); }
 .footer__title { font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
 
 /* ═══════════════════════════════════════════════════════════

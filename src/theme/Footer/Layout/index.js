@@ -7,8 +7,7 @@ export default function FooterLayout({style, links, logo, copyright}) {
     <footer
       className={clsx(ThemeClassNames.layout.footer.container, 'footer', {
         'footer--dark': style === 'dark',
-      })}
-      style={{borderTop: '1px solid var(--mintlify-border-solid)'}}>
+      })}>
       <div className="container container-fluid">
         {links}
         {(logo || copyright) && (
