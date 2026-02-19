@@ -277,12 +277,12 @@ code { background: var(--ifm-code-background); border: none; font-size: var(--if
 
 .table-of-contents { border-left: none; padding: 0; margin: 0; list-style: none; }
 .table-of-contents li { padding: 0; margin: 0; }
-.table-of-contents li.toc-h3 { padding-left: 16px; }
 .table-of-contents__link { font-size: 0.875rem; font-weight: 500; line-height: 24px; display: block; padding: 4px 0 4px 16px; border-left: 1px solid rgba(10, 13, 12, 0.05); color: var(--mintlify-muted); transition: border-color 0.15s, color 0.15s; }
+[data-theme='dark'] .table-of-contents__link { border-left-color: rgba(255, 255, 255, 0.1); }
 .table-of-contents__link:hover { color: var(--mintlify-heading-color); text-decoration: none; }
 .table-of-contents__link--active,
-.table-of-contents__link--active:hover { font-weight: 500; border-left: 1px solid var(--ifm-color-primary); color: var(--ifm-color-primary); }
-.table-of-contents li.toc-h3 .table-of-contents__link { font-weight: 400; }
+.table-of-contents__link--active:hover { font-weight: 500; border-left-color: var(--ifm-color-primary); color: var(--ifm-color-primary); }
+.table-of-contents li.toc-h3 .table-of-contents__link { padding-left: 2rem; font-weight: 400; }
 
 /* ═══════════════════════════════════════════════════════════
    CODE BLOCKS
