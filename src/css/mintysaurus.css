@@ -139,20 +139,43 @@ body { letter-spacing: normal; -webkit-font-smoothing: antialiased; -moz-osx-fon
 
 /* ═══════════════════════════════════════════════════════════
    INSET PANEL — rounded card below navbar (Mintlify signature)
+   Sidebar sits on the page background. The content + TOC area
+   is a white panel with border and rounded corners that scrolls
+   independently. The outer wrapper is viewport-height so the
+   page itself barely scrolls.
    ═══════════════════════════════════════════════════════════ */
 
 @media (min-width: 997px) {
   .navbar { background: var(--mintlify-page-bg); backdrop-filter: none; -webkit-backdrop-filter: none; }
-  [class*='docsWrapper'] { margin: 0 12px; }
+
+  /* Fixed-height layout: viewport minus navbar */
+  [class*='docsWrapper'] {
+    height: calc(100dvh - var(--ifm-navbar-height));
+    margin: 0 12px;
+  }
   [class*='docRoot'] {
+    height: 100%;
+  }
+
+  /* Sidebar: page background, own scroll */
+  .theme-doc-sidebar-container {
+    border-right: none !important;
+    background: transparent;
+    overflow-y: auto;
+  }
+
+  /* Content panel: white card with border + rounded corners, own scroll */
+  .theme-doc-sidebar-container + main {
     background: var(--mintlify-panel-bg);
     border: 1px solid var(--mintlify-border);
-    border-bottom: none;
-    border-radius: 12px 12px 0 0;
+    border-radius: 16px 16px 0 0;
+    overflow-y: auto;
   }
-  html.docs-wrapper .theme-layout-footer { border-top: none; }
-  .theme-doc-sidebar-container { border-right: none !important; }
-  .theme-doc-sidebar-container + main { border-left: 1px solid var(--mintlify-border-solid); }
+
+  /* Footer: hide on docs pages (copyright is minimal, pagination provides nav) */
+  html.docs-wrapper .theme-layout-footer {
+    display: none;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -259,7 +282,7 @@ code { background: var(--ifm-code-background); border: none; font-size: var(--if
 .table-of-contents__link:hover { color: var(--mintlify-heading-color); text-decoration: none; }
 .table-of-contents__link--active,
 .table-of-contents__link--active:hover { font-weight: 500; border-left: 1px solid var(--ifm-color-primary); color: var(--ifm-color-primary); }
-.table-of-contents li.toc-h3 .table-of-contents__link { border-left: none; font-weight: 400; }
+.table-of-contents li.toc-h3 .table-of-contents__link { font-weight: 400; }
 
 /* ═══════════════════════════════════════════════════════════
    CODE BLOCKS
