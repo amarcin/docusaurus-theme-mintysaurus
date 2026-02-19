@@ -170,6 +170,7 @@ body { letter-spacing: normal; -webkit-font-smoothing: antialiased; -moz-osx-fon
     border: 1px solid var(--mintlify-border);
     border-radius: 16px 16px 0 0;
     overflow-y: auto;
+    padding-top: 3rem;
   }
 
   /* Footer: hide on docs pages (copyright is minimal, pagination provides nav) */
@@ -207,7 +208,7 @@ nav.menu { padding: 0.75rem 0 0.75rem 1rem; }
    ═══════════════════════════════════════════════════════════ */
 
 @media (min-width: 997px) {
-  .container.padding-top--md { padding-top: 3.5rem !important; }
+  .container.padding-top--md { padding-top: 0 !important; }
   .container.padding-bottom--lg { padding-bottom: 3rem !important; }
   [class*='docMainContainer'] .container { padding-left: 0 !important; padding-right: 0 !important; }
   [class*='docMainContainer'] { padding: 0 4rem; max-width: calc(100% - 264px) !important; }
