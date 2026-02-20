@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "A Mintlify-style theme for Docusaurus",
   "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./sidebar": "./src/sidebar.js"
+  },
   "peerDependencies": {
     "@docusaurus/core": "^3.9.0",
     "react": "^18.0.0 || ^19.0.0",
