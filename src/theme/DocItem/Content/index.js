@@ -15,9 +15,8 @@ function useSyntheticTitle() {
 function useCategoryLabel() {
   const breadcrumbs = useSidebarBreadcrumbs();
   if (!breadcrumbs || breadcrumbs.length === 0) return null;
-  // Find the nearest category in the breadcrumb trail
-  const category = breadcrumbs.find(item => item.type === 'category');
-  return category?.label || null;
+  const categories = breadcrumbs.filter(item => item.type === 'category');
+  return categories.length > 0 ? categories[categories.length - 1].label : null;
 }
 
 export default function DocItemContent({children}) {
