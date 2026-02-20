@@ -96,29 +96,29 @@
   --ifm-color-primary-light: #52dba9;
   --ifm-color-primary-lighter: #5edeb0;
   --ifm-color-primary-lightest: #7fe6c2;
-  --ifm-background-color: #0f1117;
-  --ifm-background-surface-color: #161821;
+  --ifm-background-color: #0a0d0d;
+  --ifm-background-surface-color: #0a0d0d;
   --ifm-navbar-background-color: rgba(15, 17, 23, 0.8);
-  --ifm-footer-background-color: #0f1117;
+  --ifm-footer-background-color: #0a0d0d;
   --ifm-footer-color: #52525b;
   --ifm-code-background: #1e293b;
   --ifm-menu-color: #a1a1aa;
   --ifm-menu-color-active: var(--ifm-color-primary);
   --ifm-menu-color-background-active: rgba(52, 211, 153, 0.08);
   --ifm-menu-color-background-hover: rgba(255, 255, 255, 0.04);
-  --ifm-toc-border-color: #27272a;
-  --ifm-hr-border-color: #27272a;
+  --ifm-toc-border-color: rgba(255, 255, 255, 0.07);
+  --ifm-hr-border-color: rgba(255, 255, 255, 0.07);
   --docusaurus-highlighted-code-line-bg: rgba(52, 211, 153, 0.1);
-  --mintlify-border: #27272a;
-  --mintlify-border-solid: #27272a;
+  --mintlify-border: rgba(255, 255, 255, 0.07);
+  --mintlify-border-solid: rgba(255, 255, 255, 0.07);
   --mintlify-muted: #71717a;
   --mintlify-muted-light: #52525b;
-  --mintlify-card-bg: #161821;
+  --mintlify-card-bg: #0a0d0d;
   --mintlify-sidebar-active-bg: rgba(52, 211, 153, 0.08);
   --mintlify-body-color: #a1a1aa;
   --mintlify-heading-color: #e4e4e7;
-  --mintlify-page-bg: #09090b;
-  --mintlify-panel-bg: #0f1117;
+  --mintlify-page-bg: #0a0d0d;
+  --mintlify-panel-bg: #0a0d0d;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -193,7 +193,7 @@ body { letter-spacing: normal; -webkit-font-smoothing: antialiased; -moz-osx-fon
 @media (min-width: 997px) {
   .theme-doc-sidebar-container { --doc-sidebar-width: 264px !important; width: 264px !important; min-width: 264px !important; }
 }
-nav.menu { padding: 0.75rem 0 0.75rem 1rem; }
+nav.menu { padding: 0.75rem 0.5rem 0.75rem 1rem; }
 
 .menu__link { font-size: 0.875rem; line-height: 1.4286; border-radius: 12px; padding: 6px 12px 6px 16px; margin: 0; transition: color 0.15s, background 0.15s; border-left: none; color: var(--mintlify-body-color); }
 .menu__list > .menu__list-item + .menu__list-item { margin-top: 1px; }
