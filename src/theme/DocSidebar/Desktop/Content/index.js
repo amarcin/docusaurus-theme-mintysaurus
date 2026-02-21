@@ -4,7 +4,7 @@ import {ThemeClassNames} from '@docusaurus/theme-common';
 import {useAnnouncementBar, useScrollPosition} from '@docusaurus/theme-common/internal';
 import {translate} from '@docusaurus/Translate';
 import DocSidebarItems from '@theme/DocSidebarItems';
-import SearchBar from '@theme/SearchBar';
+import BrowserOnly from '@docusaurus/BrowserOnly';
 
 function useShowAnnouncementBar() {
   const {isActive} = useAnnouncementBar();
@@ -20,7 +20,12 @@ export default function DocSidebarDesktopContent({path, sidebar, className}) {
   return (
     <div className="sidebar-with-search">
       <div className="sidebar-search-container">
-        <SearchBar />
+        <BrowserOnly>
+          {() => {
+            const SearchBar = require('@theme/SearchBar').default;
+            return <SearchBar />;
+          }}
+        </BrowserOnly>
       </div>
       <nav
         aria-label={translate({
