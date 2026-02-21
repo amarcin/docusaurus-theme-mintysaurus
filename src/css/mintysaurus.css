@@ -185,13 +185,15 @@ body { letter-spacing: normal; -webkit-font-smoothing: antialiased; -moz-osx-fon
   /* Content row: flex layout for article + TOC */
   .mintysaurus-content-row {
     display: flex;
-    gap: 2.5rem;
-    padding-left: 48px;
+    gap: 88px;
+    max-width: calc(var(--mintlify-content-max-width) + 88px + 220px);
+    margin: 0 auto;
   }
   .mintysaurus-article {
     max-width: var(--mintlify-content-max-width);
     flex: 0 1 var(--mintlify-content-max-width);
     min-width: 0;
+    overflow-x: auto;
   }
   .mintysaurus-toc {
     flex: 0 0 220px;
@@ -199,6 +201,12 @@ body { letter-spacing: normal; -webkit-font-smoothing: antialiased; -moz-osx-fon
     padding-top: 0;
   }
   .mintysaurus-toc > div { padding: 0; }
+}
+
+/* Hide TOC and center content at narrower desktop widths (matches Almond ~1260px) */
+@media (min-width: 997px) and (max-width: 1279px) {
+  .mintysaurus-toc { display: none; }
+  .mintysaurus-content-row { max-width: var(--mintlify-content-max-width); }
 
   /* Footer: hide on docs pages */
   html.docs-wrapper .theme-layout-footer {
@@ -390,7 +398,7 @@ h2:hover .hash-link, h3:hover .hash-link, h4:hover .hash-link { opacity: 1; }
    TABLES
    ═══════════════════════════════════════════════════════════ */
 
-.theme-doc-markdown table { font-size: 0.875rem; border-collapse: collapse; width: 100%; }
+.theme-doc-markdown table { font-size: 0.875rem; border-collapse: collapse; width: max-content; min-width: 100%; }
 .theme-doc-markdown th { font-weight: 600; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.03em; }
 .theme-doc-markdown td, .theme-doc-markdown th { border-color: var(--mintlify-border-solid); padding: 0.625rem 0.875rem; }
 

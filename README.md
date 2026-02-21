@@ -71,10 +71,19 @@ viewport (1440px)
             │  border-radius: 16px 16px 0 0
             │  border: 1px solid rgba(223,225,224,0.7)
             │  padding: 48px 64px 0
-            └── .mintysaurus-content-row (flex, padding-left:48px)
-                ├── .mintysaurus-article (max-width:576px)
+            └── .mintysaurus-content-row (flex, max-width:884px, margin:0 auto)
+                ├── .mintysaurus-article (max-width:576px, overflow-x:auto)
+                │   gap: 88px
                 └── .mintysaurus-toc (flex:0 0 220px)
 ```
+
+### Responsive Breakpoints
+
+| Viewport | TOC | Content row | Notes |
+|---|---|---|---|
+| ≥1280px | Visible (220px) | Centered, 88px gap | Full layout with TOC |
+| 997–1279px | Hidden | Centered, max-width 576px | Content fills panel width |
+| ≤996px | Mobile collapsible | Full width | Standard mobile layout |
 
 ### File Map
 
