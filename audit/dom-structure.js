@@ -123,20 +123,14 @@ async function runDomTests(almondPage, docPage) {
     })()
   `);
   if (paginationOrder && almondPaginationOrder) {
-    // Visual order matters, not DOM order. Check that title appears above sublabel visually.
-    const docSublabel = await docPage.evaluate(`
-      (function() {
-        var link = document.querySelector('.pagination-nav__link');
-        if (!link) return null;
-        var sub = link.querySelector('.pagination-nav__sublabel');
-        var label = link.querySelector('.pagination-nav__label');
-        if (!sub || !label) return null;
-        return { sublabelTop: sub.getBoundingClientRect().top, labelTop: label.getBoundingClientRect().top };
-      })()
-    `);
+    // Almond shows title first, sublabel second. Check our DOM matches.
+    const almondFirstText = almondPaginationOrder.children[0]?.text || '';
+    const docChildren = paginationOrder.children.map(c => c.cls);
+    const docSublabelIdx = docChildren.findIndex(c => c.includes('sublabel'));
+    const docLabelIdx = docChildren.findIndex(c => c.includes('label') && !c.includes('sublabel'));
     test('pagination-child-order',
-      docSublabel && docSublabel.labelTop < docSublabel.sublabelTop,
-      docSublabel ? `label.top=${docSublabel.labelTop.toFixed(0)} sublabel.top=${docSublabel.sublabelTop.toFixed(0)} (expect label above sublabel)` : 'elements not found');
+      docSublabelIdx >= 0 && docLabelIdx >= 0 && docLabelIdx < docSublabelIdx,
+      `almond=[${almondPaginationOrder.children.map(c => c.text).join(', ')}] doc=[${paginationOrder.children.map(c => c.text).join(', ')}] (expect label before sublabel)`);
   }
 
   // --- 6. Admonition internal structure: icon + text have gap ---
@@ -145,14 +139,32 @@ async function runDomTests(almondPage, docPage) {
       var adm = document.querySelector('.theme-admonition');
       if (!adm) return null;
       var heading = adm.querySelector('.admonitionHeading_Gvgb, [class*="admonitionHeading"]');
-      if (!heading) return { error: 'no heading found' };
-      var cs = getComputedStyle(heading);
-      var gap = parseFloat(cs.gap) || 0;
-      return { display: cs.display, gap: gap, gapRaw: cs.gap };
+      if (!heading) {
+        // Try finding the icon and title directly
+        var icon = adm.querySelector('svg, .admonition-icon, [class*="admonitionIcon"]');
+        var title = adm.querySelector('[class*="admonitionTitle"], .admonition-title');
+        if (icon && title) {
+          var ir = icon.getBoundingClientRect();
+          var tr = title.getBoundingClientRect();
+          return { gap: tr.left - ir.right, iconRight: ir.right, titleLeft: tr.left, method: 'icon-title' };
+        }
+      }
+      // Check the heading row for gap between icon and text
+      if (heading) {
+        var cs = getComputedStyle(heading);
+        var children = heading.children;
+        if (children.length >= 2) {
+          var r1 = children[0].getBoundingClientRect();
+          var r2 = children[1].getBoundingClientRect();
+          return { gap: r2.left - r1.right, display: cs.display, method: 'heading-children' };
+        }
+        return { gap: 0, display: cs.display, childCount: children.length, method: 'heading-single' };
+      }
+      return { error: 'no heading or icon found' };
     })()
   `);
   test('admonition-icon-text-gap',
-    admonitionGap && admonitionGap.display === 'flex' && admonitionGap.gap >= 4,
+    admonitionGap && admonitionGap.gap >= 4,
     JSON.stringify(admonitionGap));
 
   // --- 7. Code block title bar exists and is styled ---
@@ -263,8 +275,8 @@ async function runDomTests(almondPage, docPage) {
     })()
   `);
   test('overflow-wrap-matches',
-    overflowWrap === almondOverflowWrap || overflowWrap === 'break-word',
-    `almond=${almondOverflowWrap} doc=${overflowWrap} (break-word accepted: prevents layout overflow)`);
+    overflowWrap === almondOverflowWrap,
+    `almond=${almondOverflowWrap} doc=${overflowWrap}`);
 
   // --- 11. lineHeight inheritance: body → paragraph ---
   const lineHeightChain = await docPage.evaluate(`
@@ -284,7 +296,7 @@ async function runDomTests(almondPage, docPage) {
   if (lineHeightChain && almondLineHeight) {
     test('body-line-height-matches',
       lineHeightChain.body === almondLineHeight.body ||
-      Math.abs(parseFloat(lineHeightChain.body) - parseFloat(almondLineHeight.body)) <= 4,
+      Math.abs(parseFloat(lineHeightChain.body) - parseFloat(almondLineHeight.body)) <= 2,
       `almond=${almondLineHeight.body} doc=${lineHeightChain.body}`);
   }
 
