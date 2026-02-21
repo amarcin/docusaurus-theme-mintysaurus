@@ -30,6 +30,11 @@ export default function DocItemLayout({children}) {
   const {metadata} = useDoc();
   return (
     <div className="mintysaurus-content-row">
+      {docTOC.desktop && (
+        <div className="mintysaurus-side-layout">
+          <div className="mintysaurus-toc">{docTOC.desktop}</div>
+        </div>
+      )}
       <div className="mintysaurus-article">
         <ContentVisibility metadata={metadata} />
         <DocVersionBanner />
@@ -42,9 +47,6 @@ export default function DocItemLayout({children}) {
         </article>
         <DocItemPaginator />
       </div>
-      {docTOC.desktop && (
-        <div className="mintysaurus-toc">{docTOC.desktop}</div>
-      )}
     </div>
   );
 }
