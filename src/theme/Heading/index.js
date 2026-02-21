@@ -37,7 +37,6 @@ export default function Heading({as: As, id, ...props}) {
         aria-label={anchorTitle}
         title={anchorTitle}
         translate="no">
-        &#8203;
       </Link>
     </As>
   );
