@@ -101,7 +101,7 @@
   --ifm-navbar-background-color: rgba(9, 13, 14, 0.8);
   --ifm-footer-background-color: #090d0e;
   --ifm-footer-color: #52525b;
-  --ifm-code-background: #1e293b;
+  --ifm-code-background: rgba(255, 255, 255, 0.05);
   --ifm-menu-color: #9ea3a2;
   --ifm-menu-color-active: var(--ifm-color-primary);
   --ifm-menu-color-background-active: rgba(0, 187, 167, 0.1);
@@ -265,10 +265,19 @@ nav.menu { padding: 0.75rem 0.5rem; }
   .mintysaurus-article { padding-bottom: 3rem; }
 }
 @media (max-width: 996px) {
-  .mintysaurus-panel { padding: 1.5rem 1rem 3rem; }
+  .mintysaurus-panel { padding: 1.5rem 1rem 3rem; overflow-x: hidden; }
+  .theme-doc-markdown h1 { font-size: 1.5rem; line-height: 1.25; }
+  .theme-doc-markdown { max-width: 100%; overflow-wrap: break-word; word-break: break-word; }
+  .theme-doc-markdown table { display: block; overflow-x: auto; }
+  .theme-doc-markdown code { word-break: break-all; }
+  .mintysaurus-article { max-width: 100%; }
 }
 
 .theme-doc-markdown { max-width: var(--mintlify-content-max-width); }
+
+@media (max-width: 996px) {
+  .theme-doc-markdown { max-width: 100%; }
+}
 
 /* ═══════════════════════════════════════════════════════════
    TYPOGRAPHY
