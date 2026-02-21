@@ -20,13 +20,13 @@ async function runVisualDiffTests(openPageFn, almondUrl, docUrl, closeAssistantF
   // at key visual landmarks.
 
   const samplePoints = [
-    { name: 'page-bg', desc: 'Background behind panel',
+    { name: 'page-bg', desc: 'Background behind panel', bgOnly: true,
       almond: `document.elementFromPoint(10, 400)`,
       doc: `document.elementFromPoint(10, 400)` },
-    { name: 'panel-bg', desc: 'Panel background color',
+    { name: 'panel-bg', desc: 'Panel background color', bgOnly: true,
       almond: `document.querySelector('#content-container')`,
       doc: `document.querySelector('.mintysaurus-panel')` },
-    { name: 'sidebar-bg', desc: 'Sidebar background',
+    { name: 'sidebar-bg', desc: 'Sidebar background', bgOnly: true,
       almond: `document.querySelector('#sidebar-content')`,
       doc: `document.querySelector('.theme-doc-sidebar-container')` },
     { name: 'body-text', desc: 'Body text color',
@@ -61,10 +61,12 @@ async function runVisualDiffTests(openPageFn, almondUrl, docUrl, closeAssistantF
       test(`visual-${sp.name}-bg`, bgMatch,
         `almond=${aColor.bg} doc=${dColor.bg}`);
 
-      // Compare text colors
-      const colorMatch = colorsClose(aColor.color, dColor.color, 15);
-      test(`visual-${sp.name}-color`, colorMatch,
-        `almond=${aColor.color} doc=${dColor.color}`);
+      // Compare text colors (skip for container-only elements where color is just inherited)
+      if (!sp.bgOnly) {
+        const colorMatch = colorsClose(aColor.color, dColor.color, 15);
+        test(`visual-${sp.name}-color`, colorMatch,
+          `almond=${aColor.color} doc=${dColor.color}`);
+      }
     }
   }
 

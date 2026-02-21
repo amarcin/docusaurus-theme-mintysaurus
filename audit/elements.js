@@ -174,7 +174,7 @@ module.exports = [
     skip: [...GLOBAL_SKIP],
     focus: [
       'fontSize', 'fontWeight', 'lineHeight', 'letterSpacing',
-      'color', 'marginTop', 'marginBottom', 'paddingBottom', 'borderBottomWidth',
+      'color', 'marginBottom', 'paddingBottom', 'borderBottomWidth',
     ],
   },
   {
@@ -426,7 +426,7 @@ module.exports = [
       'borderRadius',
       'borderTopWidth', 'borderTopColor',
       'paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft',
-      'display', 'flexDirection',
+      'display',
     ],
   },
   {

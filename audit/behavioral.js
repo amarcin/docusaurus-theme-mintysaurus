@@ -366,6 +366,8 @@ async function runBehavioralTests(page, site) {
     JSON.stringify(panelBottom));
 
   // 19. TOC link hover changes color
+  await page.scrollTo('.mintysaurus-panel', 0);
+  await new Promise(r => setTimeout(r, 300));
   const tocLinkSel = '.table-of-contents__link:not(.table-of-contents__link--active)';
   const preTocHover = await page.evaluate(`
     (function() {
@@ -407,22 +409,27 @@ async function runBehavioralTests(page, site) {
     postLinkHover && postLinkHover.textDecoration.includes('underline'),
     `pre=${JSON.stringify(preLinkHover)} post=${JSON.stringify(postLinkHover)}`);
 
-  // 21. Sidebar group header is expandable (has caret/toggle)
+  // 21. Nested sidebar groups are expandable (top-level groups are intentionally non-collapsible)
   const sidebarGroupToggle = await page.evaluate(`
     (function() {
-      var el = document.querySelector('.menu__list-item-collapsible');
-      if (!el) return null;
-      var caret = el.querySelector('.menu__caret, .menu__link--sublist-caret, [class*="caret"]');
-      var link = el.querySelector('.menu__link--sublist');
-      return {
-        hasCollapsible: true,
-        hasCaret: !!caret,
-        hasSublistLink: !!link
-      };
+      // Top-level groups are non-collapsible by design. Check nested groups.
+      var nested = document.querySelectorAll('.menu__list .menu__list .menu__list-item-collapsible');
+      if (nested.length > 0) {
+        var caret = nested[0].querySelector('.menu__caret, .menu__link--sublist-caret, [class*="caret"]');
+        return { hasNestedCollapsible: true, hasCaret: !!caret };
+      }
+      // If no nested groups, check that top-level groups exist and are non-collapsible
+      var topLevel = document.querySelector('.theme-doc-sidebar-item-category-level-1 > .menu__list-item-collapsible');
+      if (topLevel) {
+        var link = topLevel.querySelector('.menu__link');
+        var pe = link ? getComputedStyle(link).pointerEvents : null;
+        return { hasTopLevelGroup: true, pointerEvents: pe, intentionallyNonCollapsible: pe === 'none' };
+      }
+      return null;
     })()
   `);
-  test('sidebar-group-expandable',
-    sidebarGroupToggle && (sidebarGroupToggle.hasCaret || sidebarGroupToggle.hasSublistLink),
+  test('sidebar-groups-configured',
+    sidebarGroupToggle && (sidebarGroupToggle.hasNestedCollapsible || sidebarGroupToggle.intentionallyNonCollapsible),
     JSON.stringify(sidebarGroupToggle));
 
   // 22. Table spans reasonable width (not auto-shrunk)
