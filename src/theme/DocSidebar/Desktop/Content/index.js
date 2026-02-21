@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, Suspense, lazy} from 'react';
 import clsx from 'clsx';
 import {ThemeClassNames} from '@docusaurus/theme-common';
 import {useAnnouncementBar, useScrollPosition} from '@docusaurus/theme-common/internal';
 import {translate} from '@docusaurus/Translate';
 import DocSidebarItems from '@theme/DocSidebarItems';
-import BrowserOnly from '@docusaurus/BrowserOnly';
+
+const SearchBar = lazy(() => import('@theme/SearchBar'));
 
 function useShowAnnouncementBar() {
   const {isActive} = useAnnouncementBar();
@@ -20,12 +21,9 @@ export default function DocSidebarDesktopContent({path, sidebar, className}) {
   return (
     <div className="sidebar-with-search">
       <div className="sidebar-search-container">
-        <BrowserOnly>
-          {() => {
-            const SearchBar = require('@theme/SearchBar').default;
-            return <SearchBar />;
-          }}
-        </BrowserOnly>
+        <Suspense fallback={null}>
+          <SearchBar />
+        </Suspense>
       </div>
       <nav
         aria-label={translate({
