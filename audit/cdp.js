@@ -92,7 +92,7 @@ async function openPage(url, width = 1440, height = 900) {
     return result.result?.result?.value;
   }
 
-  async function screenshot(timeoutMs = 10000) {
+  async function screenshot(timeoutMs = 30000) {
     const result = await Promise.race([
       page.send('Page.captureScreenshot', { format: 'png', quality: 80 }),
       new Promise((_, reject) => setTimeout(() => reject(new Error('screenshot timeout')), timeoutMs))
