@@ -137,7 +137,23 @@ async function openPage(url, width = 1440, height = 900) {
     await new Promise(r => setTimeout(r, 500));
   }
 
-  return { evaluate, screenshot, destroy, hover, scrollTo, targetId };
+  async function click(selector) {
+    const rect = await evaluate(`
+      (function() {
+        var el = document.querySelector('${selector.replace(/'/g, "\\'")}');
+        if (!el) return null;
+        var r = el.getBoundingClientRect();
+        return { x: r.left + r.width/2, y: r.top + r.height/2 };
+      })()
+    `);
+    if (!rect) return false;
+    await page.send('Input.dispatchMouseEvent', { type: 'mousePressed', x: rect.x, y: rect.y, button: 'left', clickCount: 1 });
+    await page.send('Input.dispatchMouseEvent', { type: 'mouseReleased', x: rect.x, y: rect.y, button: 'left', clickCount: 1 });
+    await new Promise(r => setTimeout(r, 300));
+    return true;
+  }
+
+  return { evaluate, screenshot, destroy, hover, scrollTo, click, targetId };
 }
 
 module.exports = { openPage };

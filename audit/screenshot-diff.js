@@ -11,7 +11,7 @@ const fs = require('fs');
 const path = require('path');
 const { openPage } = require('./cdp');
 
-const ALMOND_URL = process.env.ALMOND_URL || 'https://almond.mintlify.app/essentials/markdown';
+const ALMOND_URL = process.env.ALMOND_URL || 'https://legacyllc.mintlify.app/essentials/text';
 const DOCUSAURUS_IP = process.env.DOCUSAURUS_IP || '172.18.0.8';
 const DOC_URL = `http://${DOCUSAURUS_IP}:3000/docs/essentials/text`;
 const SHOTS_DIR = '/app/theme/audit/shots';
@@ -37,18 +37,9 @@ const REGIONS = {
 };
 
 async function closeAssistant(page) {
-  await page.evaluate(`
-    (function() {
-      var bs = document.querySelectorAll('button');
-      for (var i = 0; i < bs.length; i++) {
-        var r = bs[i].getBoundingClientRect();
-        if (r.left > window.innerWidth - 90 && r.top < 50 && r.width < 40) {
-          bs[i].click(); return;
-        }
-      }
-    })()
-  `);
-  await new Promise(r => setTimeout(r, 1500));
+  await page.evaluate(`localStorage.setItem("chat-assistant-sheet-open","false")`);
+  await page.evaluate(`location.reload()`);
+  await new Promise(r => setTimeout(r, 5000));
 }
 
 async function getRect(page, selector) {
@@ -144,6 +135,10 @@ async function main() {
   const jsonOutput = process.argv.includes('--json');
   const results = [];
   fs.mkdirSync(SHOTS_DIR, { recursive: true });
+  // Clean old diff files
+  for (const f of fs.readdirSync(SHOTS_DIR)) {
+    if (f.startsWith('diff-')) fs.unlinkSync(path.join(SHOTS_DIR, f));
+  }
 
   for (const bp of BREAKPOINTS) {
     console.error(`\n── ${bp.name}px ──`);
@@ -153,7 +148,7 @@ async function main() {
     // Phase 1: open each site one at a time, grab rects and screenshot, then close
     console.error('  Opening Almond...');
     const almond = await openPage(ALMOND_URL, bp.width, bp.height);
-    if (isDesktop) await closeAssistant(almond);
+    await closeAssistant(almond);
 
     const almondRects = {};
     for (const region of regionDefs) {
