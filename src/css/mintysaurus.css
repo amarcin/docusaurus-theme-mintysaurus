@@ -400,8 +400,8 @@ div[class*='codeBlockContainer']:has(div[class*='codeBlockTitle']) div[class*='c
 .prism-code code { background: transparent !important; }
 .prism-code [class*='codeBlockLines'] { padding: 0 !important; font-size: 14px !important; }
 div[class*='codeBlockTitle'] { font-size: 0.75rem; font-weight: 500; line-height: 24px; padding: 4px 10px 4px 16px; border-bottom: none; background: transparent; color: var(--mintlify-muted); border-radius: 14px 14px 0 0; }
-div[class*='buttonGroup'] button { border-radius: 6px; width: 26px; height: 26px; padding: 0; background: transparent; opacity: 1; color: var(--mintlify-muted); border: 1px solid transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.15s, color 0.15s; }
-div[class*='buttonGroup'] button:hover { border-color: var(--mintlify-border-solid); color: var(--mintlify-text); }
+div[class*='buttonGroup'] button { border-radius: 6px; width: 26px; height: 26px; padding: 0; background: transparent; opacity: 1; color: var(--mintlify-muted); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: color 0.15s; }
+div[class*='buttonGroup'] button:hover { color: var(--mintlify-text); }
 div[class*='buttonGroup'] button svg { width: 18px; height: 18px; }
 div[class*='buttonGroup'] { position: absolute; top: 0; right: 0; z-index: 1; }
 div[class*='codeBlockContainer']:has(div[class*='codeBlockTitle']) div[class*='buttonGroup'] { top: -29px; right: 10px; }
