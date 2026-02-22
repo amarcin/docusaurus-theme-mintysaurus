@@ -310,15 +310,23 @@ nav.menu { padding: 0.75rem 0.5rem; }
 .mintlify-description { font-size: 18px; color: var(--mintlify-body-color); line-height: 28px; margin-bottom: 0; margin-top: 8px; padding-bottom: 0; border-bottom: none; }
 
 .theme-doc-markdown h2 { font-size: 1.5rem; font-weight: 600; line-height: 1.333; margin-top: 3rem; margin-bottom: 1rem; padding-bottom: 0; border-bottom: none; letter-spacing: -0.025em; color: #111827; }
+.theme-doc-markdown > header + h2 { margin-top: 0; }
 [data-theme='dark'] .theme-doc-markdown h2 { color: #ffffff; }
 
 .theme-doc-markdown h3 { font-size: 1.25rem; font-weight: 600; line-height: 1.4; margin-top: 3rem; margin-bottom: 0.75rem; letter-spacing: -0.025em; color: #111827; }
 [data-theme='dark'] .theme-doc-markdown h3 { color: #ffffff; }
 
+.theme-doc-markdown h4 { font-size: 1.125rem; font-weight: 600; line-height: 1.5; margin-top: 2.25rem; margin-bottom: 0.5625rem; color: #111827; }
+[data-theme='dark'] .theme-doc-markdown h4 { color: #ffffff; }
+
 .theme-doc-markdown p { font-size: 16px; line-height: 28px; color: var(--mintlify-body-color); }
 
-.theme-doc-markdown ul, .theme-doc-markdown ol { font-size: 16px; line-height: 28px; padding-left: 1.25rem; color: var(--mintlify-body-color); }
-.theme-doc-markdown li { margin-bottom: 0.25rem; }
+.theme-doc-markdown ul, .theme-doc-markdown ol { font-size: 16px; line-height: 28px; color: var(--mintlify-body-color); margin-bottom: 20px; }
+.theme-doc-markdown ul { padding-left: 0; list-style: none; }
+.theme-doc-markdown ol { padding-left: 34px; }
+.theme-doc-markdown li { margin-bottom: 0.5rem; }
+.theme-doc-markdown ul > li { position: relative; padding-left: 32px; }
+.theme-doc-markdown ul > li::before { content: ""; position: absolute; left: 8px; top: 11px; width: 6px; height: 6px; border-radius: 50%; background-color: var(--mintlify-muted); }
 
 .theme-doc-markdown a { color: var(--ifm-color-primary); text-decoration: none; font-weight: 500; }
 .theme-doc-markdown a:hover { text-decoration: underline; }
@@ -363,10 +371,10 @@ button[class*='copyButton'] { border-radius: 6px; }
    ═══════════════════════════════════════════════════════════ */
 
 .pagination-nav { margin-top: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.pagination-nav__link { border-radius: 12px; border: 1px solid var(--mintlify-border); padding: 0.75rem 1rem; transition: all 0.15s; display: flex; flex-direction: column-reverse; }
+.pagination-nav__link { border-radius: 12px; border: 1px solid var(--mintlify-border); padding: 0.75rem 1rem; transition: all 0.15s; display: flex; flex-direction: column-reverse; color: var(--mintlify-muted-light); }
 .pagination-nav__link:hover { border-color: rgb(180, 185, 185) !important; }
 [data-theme='dark'] .pagination-nav__link:hover { border-color: rgba(255, 255, 255, 0.15); }
-.pagination-nav__sublabel { font-size: 1rem; font-weight: 400; color: var(--mintlify-muted-light); margin-top: 0; text-transform: none; letter-spacing: normal; }
+.pagination-nav__sublabel { font-size: 0.875rem; font-weight: 400; color: var(--mintlify-muted-light); margin-top: 0; text-transform: none; letter-spacing: normal; }
 .pagination-nav__label { font-size: 1rem; font-weight: 500; color: var(--mintlify-heading-color); }
 .pagination-nav__link--prev .pagination-nav__label::before { content: none; }
 .pagination-nav__link--next .pagination-nav__label::after { content: none; }
@@ -386,7 +394,10 @@ body:has([class*='docsWrapper']) .theme-layout-footer { display: none; }
    BLOCKQUOTE
    ═══════════════════════════════════════════════════════════ */
 
-.theme-doc-markdown blockquote { border-left: 4px solid var(--mintlify-border-solid); padding: 0 0 0 24px; margin: 25.6px 0; background: transparent; border-radius: 0; color: var(--mintlify-body-color); }
+.theme-doc-markdown blockquote { border-left: 4px solid var(--mintlify-border-solid); padding: 0 0 0 24px; margin: 0 0 25.6px; background: transparent; border-radius: 0; color: var(--mintlify-body-color); }
+
+.theme-doc-markdown hr { margin: 48px 0; border-top-color: rgb(238, 242, 240); }
+[data-theme='dark'] .theme-doc-markdown hr { border-top-color: rgba(255, 255, 255, 0.07); }
 
 /* ═══════════════════════════════════════════════════════════
    ADMONITIONS
