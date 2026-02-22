@@ -68,6 +68,9 @@ async function openPage(url, width = 1440, height = 900) {
   await page.send('Emulation.setDeviceMetricsOverride', {
     width, height, deviceScaleFactor: 1, mobile: false
   });
+  await page.send('Emulation.setEmulatedMedia', {
+    features: [{ name: 'prefers-color-scheme', value: 'light' }]
+  });
   await page.send('Page.enable');
   await page.send('Runtime.enable');
   await page.send('DOM.enable');

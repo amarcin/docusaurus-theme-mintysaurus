@@ -158,6 +158,8 @@ async function main() {
     console.error('  Opening Almond...');
     const almond = await openPage(ALMOND_URL, bp.width, bp.height);
     await closeAssistant(almond);
+    await almond.evaluate("document.documentElement.classList.remove('dark','twoslash-dark'); document.documentElement.style.colorScheme = 'light'");
+    await new Promise(r => setTimeout(r, 1000));
     const almondCaptures = [];
     for (const sp of SCROLL_POSITIONS) {
       if (sp.frac > 0) {
