@@ -343,6 +343,7 @@ nav.menu { padding: 0.75rem 0.5rem; }
 [data-theme='dark'] .theme-doc-markdown h2 { color: #ffffff; }
 
 .theme-doc-markdown h3 { font-size: 1.25rem; font-weight: 600; line-height: 1.4; margin-top: 3rem; margin-bottom: 0.75rem; letter-spacing: -0.025em; color: #111827; }
+.theme-doc-markdown h2 + h3 { margin-top: 0; }
 [data-theme='dark'] .theme-doc-markdown h3 { color: #ffffff; }
 
 .theme-doc-markdown h4 { font-size: 1.125rem; font-weight: 600; line-height: 1.5; margin-top: 2.25rem; margin-bottom: 0.5625rem; color: #111827; }
@@ -436,8 +437,8 @@ body:has([class*='docsWrapper']) .theme-layout-footer { display: none; }
    ADMONITIONS
    ═══════════════════════════════════════════════════════════ */
 
-.theme-admonition { border-radius: 16px; border-left-width: 1px; font-size: 1rem; padding: 1rem 1.25rem; display: flex; gap: 12px; }
-.theme-admonition [class*='admonitionHeading'] { display: flex; align-items: center; gap: 8px; }
+.theme-admonition { border-radius: 16px; border-width: 1px; border-style: solid; font-size: 1rem; padding: 1rem 1.25rem; display: flex; gap: 12px; margin: 16px 0; }
+.theme-admonition [class*='admonitionHeading'] { display: none; }
 
 /* ═══════════════════════════════════════════════════════════
    DOC CARDS
@@ -542,6 +543,13 @@ button[class*='tocCollapsibleButton'] { font-size: 0.8125rem; font-weight: 600; 
 /* ═══════════════════════════════════════════════════════════
    SCROLLBAR
    ═══════════════════════════════════════════════════════════ */
+
+/* Panel scrollbar: overlay style */
+.mintysaurus-panel { scrollbar-width: thin; scrollbar-color: #d4d4d8 transparent; }
+[data-theme='dark'] .mintysaurus-panel { scrollbar-color: #3f3f46 transparent; }
+.mintysaurus-panel::-webkit-scrollbar { width: 6px; background: transparent; }
+.mintysaurus-panel::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 3px; }
+[data-theme='dark'] .mintysaurus-panel::-webkit-scrollbar-thumb { background: #3f3f46; }
 
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
