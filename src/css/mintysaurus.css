@@ -246,7 +246,8 @@ body { letter-spacing: normal; -webkit-font-smoothing: antialiased; -moz-osx-fon
 @media (min-width: 997px) {
   .theme-doc-sidebar-container { --doc-sidebar-width: 264px !important; width: 264px !important; }
 }
-nav.menu { padding: 0.75rem 0.5rem; }
+nav.menu { padding: 0.75rem 0.5rem; scrollbar-width: none; }
+nav.menu::-webkit-scrollbar { display: none; }
 
 .menu__link { font-size: 14px; line-height: 20px; font-weight: 400; border-radius: 12px; padding: 6px 12px 6px 16px; margin: 0; transition: all 0.15s; border-left: none; color: var(--mintlify-body-color) !important; }
 .menu__list > .menu__list-item + .menu__list-item { margin-top: 1px; }
@@ -545,11 +546,10 @@ button[class*='tocCollapsibleButton'] { font-size: 0.8125rem; font-weight: 600; 
    ═══════════════════════════════════════════════════════════ */
 
 /* Panel scrollbar: overlay style */
-.mintysaurus-panel { scrollbar-width: thin; scrollbar-color: #d4d4d8 transparent; }
-[data-theme='dark'] .mintysaurus-panel { scrollbar-color: #3f3f46 transparent; }
+.mintysaurus-panel { scrollbar-width: none; }
 .mintysaurus-panel::-webkit-scrollbar { width: 6px; background: transparent; }
-.mintysaurus-panel::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 3px; }
-[data-theme='dark'] .mintysaurus-panel::-webkit-scrollbar-thumb { background: #3f3f46; }
+.mintysaurus-panel::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 3px; }
+[data-theme='dark'] .mintysaurus-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); }
 
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
