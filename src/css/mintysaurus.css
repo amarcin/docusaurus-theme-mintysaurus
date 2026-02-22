@@ -498,7 +498,8 @@ h2:hover .hash-link, h3:hover .hash-link, h4:hover .hash-link { opacity: 1; }
 /* Hide navbar color mode toggle on desktop — it lives in the sidebar */
 @media (min-width: 997px) { [class*='colorModeToggle'] { display: none; } }
 
-.sidebar-theme-container { border-top: 1px solid var(--mintlify-border); padding: 12px 16px; }
+.sidebar-theme-container { padding: 12px 16px; }
+.sidebar-theme-container::before { content: ''; display: block; height: 1px; background: var(--mintlify-border); margin-bottom: 12px; }
 .sidebar-theme-toggle {
   position: relative; width: 52px; height: 28px; border-radius: 9999px;
   border: 1px solid var(--mintlify-border); background: transparent;
