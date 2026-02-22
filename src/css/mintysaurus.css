@@ -401,8 +401,8 @@ div[class*='codeBlockContainer']:has(div[class*='codeBlockTitle']) div[class*='c
 .prism-code [class*='codeBlockLines'] { padding: 0 !important; font-size: 14px !important; }
 div[class*='codeBlockTitle'] { font-size: 0.75rem; font-weight: 500; line-height: 24px; padding: 4px 10px 4px 16px; border-bottom: none; background: transparent; color: var(--mintlify-muted); border-radius: 14px 14px 0 0; }
 button[class*='copyButton'], .mintysaurus-copy-button { border-radius: 6px; width: 26px; height: 26px; padding: 0; background: transparent; opacity: 1; color: var(--mintlify-muted); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-button[class*='copyButton'] svg, .mintysaurus-copy-button svg { width: 18px; height: 18px; }
-div[class*='buttonGroup'] { position: absolute; top: 14px; right: 16px; z-index: 1; }
+button[class*='copyButton'] svg, .mintysaurus-copy-button svg { width: 18px; height: 18px; fill: currentColor; }
+div[class*='buttonGroup'] { position: absolute; top: 12px; right: 16px; z-index: 1; }
 div[class*='codeBlockContainer']:has(div[class*='codeBlockTitle']) div[class*='buttonGroup'] { top: -29px; right: 10px; }
 
 /* ═══════════════════════════════════════════════════════════

@@ -1,6 +1,8 @@
 import React, {useCallback, useState, useRef, useEffect} from 'react';
+import clsx from 'clsx';
 import {translate} from '@docusaurus/Translate';
 import {useCodeBlockContext} from '@docusaurus/theme-common/internal';
+import Button from '@theme/CodeBlock/Buttons/Button';
 import IconCopy from '@theme/Icon/Copy';
 import IconSuccess from '@theme/Icon/Success';
 
@@ -33,16 +35,19 @@ export default function CopyButton({className}) {
 
   useEffect(() => () => window.clearTimeout(copyTimeout.current), []);
 
+  const label = isCopied
+    ? translate({id: 'theme.CodeBlock.copied', message: 'Copied'})
+    : translate({id: 'theme.CodeBlock.copyButtonAriaLabel', message: 'Copy code to clipboard'});
+
   return (
-    <button
-      type="button"
-      aria-label={isCopied
-        ? translate({id: 'theme.CodeBlock.copied', message: 'Copied'})
-        : translate({id: 'theme.CodeBlock.copyButtonAriaLabel', message: 'Copy code to clipboard'})}
+    <Button
+      aria-label={label}
       title={translate({id: 'theme.CodeBlock.copy', message: 'Copy'})}
-      className={`mintysaurus-copy-button ${className || ''} ${isCopied ? 'copied' : ''}`}
+      className={clsx(className, 'mintysaurus-copy-button', isCopied && 'mintysaurus-copy-copied')}
       onClick={copyCode}>
-      {isCopied ? <IconSuccess /> : <IconCopy />}
-    </button>
+      <span aria-hidden="true">
+        {isCopied ? <IconSuccess /> : <IconCopy />}
+      </span>
+    </Button>
   );
 }
