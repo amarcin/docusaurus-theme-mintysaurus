@@ -284,7 +284,21 @@ nav.menu { padding: 0.75rem 0.5rem; }
   .mintysaurus-article { padding-bottom: 3rem; }
 }
 @media (max-width: 996px) {
-  .mintysaurus-panel { padding: 1.5rem 1rem 3rem; overflow-x: hidden; border-radius: 16px; }
+  /* Mobile inset panel — match Almond's viewport-contained card layout */
+  [class*='docsWrapper'] {
+    height: calc(100dvh - var(--ifm-navbar-height));
+    padding: 0 8px 8px;
+    margin-top: var(--ifm-navbar-height);
+  }
+  .mintysaurus-panel {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: var(--mintlify-panel-bg);
+    border: 1px solid var(--mintlify-border);
+    border-radius: 16px;
+    padding: 32px 32px 0;
+  }
   .theme-doc-markdown h1 { font-size: 1.5rem; line-height: 1.25; }
   .theme-doc-markdown { max-width: 100%; overflow-wrap: break-word; word-break: break-word; }
   .theme-doc-markdown table { display: block; overflow-x: auto; }
