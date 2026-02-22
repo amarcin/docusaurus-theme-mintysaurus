@@ -422,6 +422,18 @@ div[class*='codeBlockContainer']:has(div[class*='codeBlockTitle']) div[class*='b
 .pagination-nav__link--next .pagination-nav__sublabel::after { content: ' →'; }
 
 /* ═══════════════════════════════════════════════════════════
+   DOC FOOTER (GitHub + Powered by)
+   ═══════════════════════════════════════════════════════════ */
+
+.mintysaurus-doc-footer { border-top: 1px solid var(--mintlify-border); padding-top: 40px; padding-bottom: 112px; margin-top: 24px; }
+.mintysaurus-doc-footer-inner { display: flex; justify-content: space-between; align-items: center; }
+.mintysaurus-doc-footer-gh { color: var(--mintlify-muted); transition: color 0.15s; }
+.mintysaurus-doc-footer-gh:hover { color: var(--mintlify-text); text-decoration: none; }
+.mintysaurus-doc-footer-gh svg { width: 20px; height: 20px; }
+.mintysaurus-doc-footer-powered { font-size: 0.875rem; color: var(--mintlify-muted); }
+.mintysaurus-doc-footer-powered strong { font-weight: 600; }
+
+/* ═══════════════════════════════════════════════════════════
    FOOTER
    ═══════════════════════════════════════════════════════════ */
 
