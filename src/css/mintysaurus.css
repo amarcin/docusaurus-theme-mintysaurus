@@ -403,6 +403,7 @@ div[class*='codeBlockTitle'] { font-size: 0.75rem; font-weight: 500; line-height
 div[class*='buttonGroup'] button { border-radius: 6px; width: 26px; height: 26px; padding: 0; background: transparent; opacity: 1; color: var(--mintlify-muted); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: color 0.15s; }
 div[class*='buttonGroup'] button:hover { color: var(--mintlify-text); }
 div[class*='buttonGroup'] button svg { width: 18px; height: 18px; }
+div[class*='buttonGroup'] button:hover svg path { stroke-width: 1.75; }
 div[class*='buttonGroup'] { position: absolute; top: 0; right: 0; z-index: 1; }
 div[class*='codeBlockContainer']:has(div[class*='codeBlockTitle']) div[class*='buttonGroup'] { top: -29px; right: 10px; }
 
