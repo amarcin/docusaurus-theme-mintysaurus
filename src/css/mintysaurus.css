@@ -141,13 +141,17 @@ body { letter-spacing: normal; -webkit-font-smoothing: antialiased; -moz-osx-fon
 .navbar__logo { display: none; }
 .navbar__title { font-weight: 700; font-size: 24px; line-height: 32px; letter-spacing: -0.6px; color: var(--mintlify-heading-color); }
 @media (min-width: 640px) { .navbar__title { font-size: 30px; line-height: 36px; letter-spacing: -0.75px; } }
-.navbar__link { font-size: 0.875rem; font-weight: 500; color: var(--mintlify-muted); padding: 0; margin: 0 12px; border-radius: 0; transition: color 0.15s; }
+.navbar__link { font-size: 0.875rem; font-weight: 500; line-height: 20px; color: var(--mintlify-muted); padding: 0; margin: 0 0 0 24px; border-radius: 0; transition: color 0.15s; }
 .navbar__link:hover { color: var(--mintlify-heading-color); background: transparent; }
 [data-theme='dark'] .navbar__link:hover { background: transparent; }
 .navbar__link--active { color: var(--mintlify-heading-color); font-weight: 500; }
 
+/* Blog bordered button */
+.navbar__link[href="/blog"] { border: 1px solid rgba(159, 163, 160, 0.2); border-radius: 8px; padding: 6px 10px; font-weight: 600; background: var(--mintlify-panel-bg); margin: 0 8px; }
+[data-theme='dark'] .navbar__link[href="/blog"] { border-color: rgba(255, 255, 255, 0.1); background: rgba(255, 255, 255, 0.05); }
+
 /* GitHub CTA button */
-.navbar__link[href*="github"] { background: rgb(21, 128, 61); color: #fff; border-radius: 8px; padding: 6px 10px; font-weight: 600; }
+.navbar__link[href*="github"] { background: rgb(21, 128, 61); color: #fff; border-radius: 8px; padding: 6px 10px; font-weight: 600; margin: 0; }
 .navbar__link[href*="github"]:hover { background: rgb(18, 110, 52); color: #fff; }
 [data-theme='dark'] .navbar__link[href*="github"] { background: rgb(21, 128, 61); color: #fff; }
 [data-theme='dark'] .navbar__link[href*="github"]:hover { background: rgb(18, 110, 52); color: #fff; }
@@ -465,7 +469,7 @@ h2:hover .hash-link, h3:hover .hash-link, h4:hover .hash-link { opacity: 1; }
    ═══════════════════════════════════════════════════════════ */
 
 /* Hide search in navbar — it lives in the sidebar instead */
-.navbar .navbar__search, .navbar .DocSearch-Button { display: none !important; }
+.navbar .navbar__search, .navbar .DocSearch-Button, .navbar [class*='navbarSearchContainer'] { display: none !important; }
 
 /* Sidebar search layout */
 .sidebar-with-search { display: flex; flex-direction: column; height: 100%; }
