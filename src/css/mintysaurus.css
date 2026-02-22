@@ -396,9 +396,10 @@ div[class*='codeBlockContainer'] { border-radius: 16px; border: 1px solid rgba(1
 div[class*='codeBlockContainer']:has(div[class*='codeBlockTitle']) { padding: 2px; background: rgb(243, 247, 245) !important; }
 div[class*='codeBlockContainer']:has(div[class*='codeBlockTitle']) div[class*='codeBlockContent'] { background: var(--mintlify-panel-bg); border-radius: 0 0 14px 14px; padding: 14px 16px; }
 .prism-code { border-radius: 0 !important; font-size: 14px !important; line-height: 24px !important; padding: 0 !important; background: transparent !important; }
+.prism-code code { background: transparent !important; }
 .prism-code [class*='codeBlockLines'] { padding: 0 !important; font-size: 14px !important; }
-div[class*='codeBlockTitle'] { font-size: 0.75rem; font-weight: 500; line-height: 24px; padding: 4px 10px 4px 16px; border-bottom: none; background: transparent; color: var(--mintlify-muted); border-radius: 14px 14px 0 0; }
-[data-theme='dark'] div[class*='codeBlockTitle'] { background: transparent; }
+div[class*='codeBlockTitle'] { font-size: 0.75rem; font-weight: 500; line-height: 24px; padding: 4px 10px 4px 16px; border-bottom: none; background: var(--mintlify-panel-bg); color: var(--mintlify-muted); border-radius: 14px 14px 0 0; }
+[data-theme='dark'] div[class*='codeBlockTitle'] { background: var(--mintlify-panel-bg); }
 button[class*='copyButton'] { border-radius: 6px; width: 26px; height: 26px; padding: 0; background: transparent; opacity: 0; transition: opacity 0.15s; }
 div[class*='codeBlockContainer']:hover button[class*='copyButton'] { opacity: 1; }
 div[class*='buttonGroup'] { position: absolute; top: 14px; right: 16px; z-index: 1; }
