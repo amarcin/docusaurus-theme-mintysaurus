@@ -20,9 +20,9 @@ const { runVisualDiffTests } = require('./visual-diff');
 const ALL_PROPS = require('./properties');
 
 // Config
-const ALMOND_URL = process.env.ALMOND_URL || 'https://almond.mintlify.app/essentials/markdown';
+const ALMOND_URL = process.env.ALMOND_URL || 'https://legacyllc.mintlify.app/essentials/audit-test';
 const DOCUSAURUS_IP = process.env.DOCUSAURUS_IP || '172.18.0.8';
-const DOCUSAURUS_URL = process.env.DOCUSAURUS_URL || `http://${DOCUSAURUS_IP}:3000/docs/audit-test`;
+const DOCUSAURUS_URL = process.env.DOCUSAURUS_URL || `http://${DOCUSAURUS_IP}:3000/docs/essentials/audit-test`;
 const VIEWPORT = { width: 1440, height: 900 };
 
 // Parse args
