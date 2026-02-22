@@ -390,9 +390,13 @@ code { background: var(--ifm-code-background); border: none; font-size: var(--if
    ═══════════════════════════════════════════════════════════ */
 
 div[class*='codeBlockContainer'] { border-radius: 16px; border: 1px solid rgba(10, 14, 14, 0.1); box-shadow: none !important; overflow: visible; margin: 20px 0 32px; background: transparent !important; padding: 14px 16px; }
-.prism-code { border-radius: 0 !important; font-size: 0.875rem !important; line-height: 1.714 !important; padding: 0 !important; background: transparent !important; }
-div[class*='codeBlockTitle'] { font-size: 0.75rem; font-weight: 500; padding: 0.5rem 1rem; border-bottom: 1px solid var(--mintlify-border-solid); background: rgba(0, 0, 0, 0.02); color: var(--mintlify-muted); }
-[data-theme='dark'] div[class*='codeBlockTitle'] { background: rgba(255, 255, 255, 0.03); }
+/* Titled code blocks: gray outer with white inner (Almond inset style) */
+div[class*='codeBlockContainer']:has(div[class*='codeBlockTitle']) { padding: 2px; background: rgb(243, 247, 245) !important; }
+div[class*='codeBlockContainer']:has(div[class*='codeBlockTitle']) div[class*='codeBlockContent'] { background: var(--mintlify-panel-bg); border-radius: 0 0 14px 14px; padding: 14px 16px; }
+.prism-code { border-radius: 0 !important; font-size: 14px !important; line-height: 24px !important; padding: 0 !important; background: transparent !important; }
+.prism-code [class*='codeBlockLines'] { padding: 0 !important; font-size: 14px !important; }
+div[class*='codeBlockTitle'] { font-size: 0.75rem; font-weight: 500; line-height: 24px; padding: 4px 10px 4px 16px; border-bottom: none; background: transparent; color: var(--mintlify-muted); border-radius: 14px 14px 0 0; }
+[data-theme='dark'] div[class*='codeBlockTitle'] { background: transparent; }
 button[class*='copyButton'] { border-radius: 6px; }
 
 /* ═══════════════════════════════════════════════════════════
