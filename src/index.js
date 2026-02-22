@@ -7,7 +7,10 @@ module.exports = function themeMintysaurus() {
       return path.resolve(__dirname, './theme');
     },
     getClientModules() {
-      return [require.resolve('./css/mintysaurus.css')];
+      return [
+        require.resolve('./js/clipboard-polyfill.js'),
+        require.resolve('./css/mintysaurus.css'),
+      ];
     },
   };
 };
