@@ -23,6 +23,16 @@ const BREAKPOINTS = [
   { name: '375',  width: 375,  height: 812 },
 ];
 
+// Scroll positions to capture (fraction of scrollHeight)
+const SCROLL_POSITIONS = [
+  { suffix: '',    frac: 0 },
+  { suffix: '-mid', frac: 0.5 },
+  { suffix: '-bot', frac: 1 },
+];
+
+const SCROLL_ALMOND = `(function(f){ var p = document.querySelector('#content-container'); if(p) p.scrollTop = p.scrollHeight * f; else window.scrollTo(0, document.body.scrollHeight * f); })`;
+const SCROLL_DOC = `(function(f){ var p = document.querySelector('.mintysaurus-panel'); if(p) p.scrollTop = p.scrollHeight * f; else window.scrollTo(0, document.body.scrollHeight * f); })`;
+
 const REGIONS = {
   desktop: [
     { name: 'navbar',  almond: '#navbar',           doc: '.navbar' },
@@ -145,90 +155,98 @@ async function main() {
     const isDesktop = bp.width >= 997;
     const regionDefs = isDesktop ? REGIONS.desktop : REGIONS.mobile;
 
-    // Phase 1: open each site one at a time, grab rects and screenshot, then close
+    // Open both pages (kept open across scroll positions)
     console.error('  Opening Almond...');
     const almond = await openPage(ALMOND_URL, bp.width, bp.height);
     await closeAssistant(almond);
-
-    const almondRects = {};
-    for (const region of regionDefs) {
-      almondRects[region.name] = await getRect(almond, region.almond);
-    }
-    console.error('  Capturing Almond...');
-    const aB64 = (await almond.screenshot()).toString('base64');
-    await almond.destroy();
-
     console.error('  Opening Docusaurus...');
     const doc = await openPage(DOC_URL, bp.width, bp.height);
+    await new Promise(r => setTimeout(r, 1000));
 
-    const docRects = {};
-    for (const region of regionDefs) {
-      docRects[region.name] = await getRect(doc, region.doc);
-    }
-    console.error('  Capturing Docusaurus...');
-    const dB64 = (await doc.screenshot()).toString('base64');
-    await doc.destroy();
-
-    fs.writeFileSync(path.join(SHOTS_DIR, `diff-almond-${bp.name}.png`), Buffer.from(aB64, 'base64'));
-    fs.writeFileSync(path.join(SHOTS_DIR, `diff-doc-${bp.name}.png`), Buffer.from(dB64, 'base64'));
-
-    // Phase 2: diff each region (opens temp pages for canvas)
-    for (const region of regionDefs) {
-      const aRect = almondRects[region.name];
-      const dRect = docRects[region.name];
-
-      if (!aRect && !dRect) {
-        results.push({ breakpoint: bp.name, region: region.name, diffPercent: null, detail: 'Both missing' });
-        continue;
-      }
-      if (!aRect) {
-        results.push({ breakpoint: bp.name, region: region.name, diffPercent: null, detail: 'Almond element not found' });
-        continue;
-      }
-      if (!dRect) {
-        results.push({ breakpoint: bp.name, region: region.name, diffPercent: 100, detail: 'Docusaurus element missing' });
-        continue;
+    for (const sp of SCROLL_POSITIONS) {
+      if (sp.frac > 0) {
+        console.error(`  Scrolling to ${sp.frac * 100}%...`);
+        await almond.evaluate(`${SCROLL_ALMOND}(${sp.frac})`);
+        await doc.evaluate(`${SCROLL_DOC}(${sp.frac})`);
+        await new Promise(r => setTimeout(r, 500));
       }
 
-      console.error(`  Diffing ${region.name}...`);
-      try {
-        const diff = await diffRegion(aB64, dB64, aRect, dRect);
-        if (diff.error) {
-          results.push({ breakpoint: bp.name, region: region.name, diffPercent: null, detail: diff.error });
+      const almondRects = {};
+      const docRects = {};
+      for (const region of regionDefs) {
+        almondRects[region.name] = await getRect(almond, region.almond);
+        docRects[region.name] = await getRect(doc, region.doc);
+      }
+
+      console.error(`  Capturing${sp.suffix || ' top'}...`);
+      const aB64 = (await almond.screenshot()).toString('base64');
+      const dB64 = (await doc.screenshot()).toString('base64');
+
+      fs.writeFileSync(path.join(SHOTS_DIR, `diff-almond-${bp.name}${sp.suffix}.png`), Buffer.from(aB64, 'base64'));
+      fs.writeFileSync(path.join(SHOTS_DIR, `diff-doc-${bp.name}${sp.suffix}.png`), Buffer.from(dB64, 'base64'));
+
+      // Diff each region
+      for (const region of regionDefs) {
+        const aRect = almondRects[region.name];
+        const dRect = docRects[region.name];
+        const label = `${region.name}${sp.suffix}`;
+
+        if (!aRect && !dRect) {
+          results.push({ breakpoint: bp.name, region: label, diffPercent: null, detail: 'Both missing' });
           continue;
         }
-        if (diff.diffImageB64) {
-          fs.writeFileSync(path.join(SHOTS_DIR, `diff-${bp.name}-${region.name}.png`), Buffer.from(diff.diffImageB64, 'base64'));
+        if (!aRect) {
+          results.push({ breakpoint: bp.name, region: label, diffPercent: null, detail: 'Almond element not found' });
+          continue;
         }
-        results.push({
-          breakpoint: bp.name, region: region.name,
-          diffPercent: diff.diffPercent, diffPixels: diff.diffPixels,
-          totalPixels: diff.totalPixels, size: `${diff.width}x${diff.height}`,
-          almondRect: aRect, docRect: dRect,
-        });
+        if (!dRect) {
+          results.push({ breakpoint: bp.name, region: label, diffPercent: 100, detail: 'Docusaurus element missing' });
+          continue;
+        }
+
+        console.error(`  Diffing ${label}...`);
+        try {
+          const diff = await diffRegion(aB64, dB64, aRect, dRect);
+          if (diff.error) {
+            results.push({ breakpoint: bp.name, region: label, diffPercent: null, detail: diff.error });
+            continue;
+          }
+          if (diff.diffImageB64) {
+            fs.writeFileSync(path.join(SHOTS_DIR, `diff-${bp.name}-${label}.png`), Buffer.from(diff.diffImageB64, 'base64'));
+          }
+          results.push({
+            breakpoint: bp.name, region: label,
+            diffPercent: diff.diffPercent, diffPixels: diff.diffPixels,
+            totalPixels: diff.totalPixels, size: `${diff.width}x${diff.height}`,
+            almondRect: aRect, docRect: dRect,
+          });
+        } catch (e) {
+          results.push({ breakpoint: bp.name, region: label, diffPercent: null, detail: e.message });
+        }
+      }
+
+      // Full-page diff
+      console.error(`  Diffing full page${sp.suffix}...`);
+      try {
+        const fpRect = { left: 0, top: 0, width: bp.width, height: bp.height };
+        const diff = await diffRegion(aB64, dB64, fpRect, fpRect);
+        if (!diff.error) {
+          if (diff.diffImageB64) {
+            fs.writeFileSync(path.join(SHOTS_DIR, `diff-${bp.name}-fullpage${sp.suffix}.png`), Buffer.from(diff.diffImageB64, 'base64'));
+          }
+          results.push({
+            breakpoint: bp.name, region: `full-page${sp.suffix}`,
+            diffPercent: diff.diffPercent, diffPixels: diff.diffPixels,
+            totalPixels: diff.totalPixels, size: `${diff.width}x${diff.height}`,
+          });
+        }
       } catch (e) {
-        results.push({ breakpoint: bp.name, region: region.name, diffPercent: null, detail: e.message });
+        results.push({ breakpoint: bp.name, region: `full-page${sp.suffix}`, diffPercent: null, detail: e.message });
       }
     }
 
-    // Full-page diff
-    console.error('  Diffing full page...');
-    try {
-      const fpRect = { left: 0, top: 0, width: bp.width, height: bp.height };
-      const diff = await diffRegion(aB64, dB64, fpRect, fpRect);
-      if (!diff.error) {
-        if (diff.diffImageB64) {
-          fs.writeFileSync(path.join(SHOTS_DIR, `diff-${bp.name}-fullpage.png`), Buffer.from(diff.diffImageB64, 'base64'));
-        }
-        results.push({
-          breakpoint: bp.name, region: 'full-page',
-          diffPercent: diff.diffPercent, diffPixels: diff.diffPixels,
-          totalPixels: diff.totalPixels, size: `${diff.width}x${diff.height}`,
-        });
-      }
-    } catch (e) {
-      results.push({ breakpoint: bp.name, region: 'full-page', diffPercent: null, detail: e.message });
-    }
+    await almond.destroy();
+    await doc.destroy();
   }
 
   if (jsonOutput) {

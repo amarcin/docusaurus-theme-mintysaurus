@@ -10,7 +10,7 @@ const { openPage } = require('./cdp');
 
 const ALMOND_URL = process.env.ALMOND_URL || 'https://legacyllc.mintlify.app/essentials/audit-test';
 const DOCUSAURUS_IP = process.env.DOCUSAURUS_IP || '172.18.0.8';
-const DOC_URL = `http://${DOCUSAURUS_IP}:3000/docs/audit-test`;
+const DOC_URL = `http://${DOCUSAURUS_IP}:3000/docs/essentials/audit-test`;
 const SHOTS_DIR = '/app/theme/audit/shots';
 
 const BREAKPOINTS = [
