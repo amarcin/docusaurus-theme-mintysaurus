@@ -470,9 +470,10 @@ h2:hover .hash-link, h3:hover .hash-link, h4:hover .hash-link { opacity: 1; }
 
 .theme-doc-markdown table { font-size: 0.875rem; line-height: 20px; border-collapse: collapse; width: 100%; }
 .theme-doc-markdown thead { border-bottom: 1px solid var(--mintlify-border-solid); }
+.theme-doc-markdown thead tr { border: none !important; }
 .theme-doc-markdown th { font-weight: 600; font-size: 0.875rem; text-transform: none; letter-spacing: normal; padding: 0 8px 8px 0; border: none; }
-.theme-doc-markdown td { padding: 8px 8px 8px 0; border: none; }
-.theme-doc-markdown tbody tr { border-bottom: 1px solid rgb(238, 242, 240); }
+.theme-doc-markdown td { padding: 8px 8px 8px 0; border: none; min-width: 150px; }
+.theme-doc-markdown tbody tr { border-bottom: 1px solid rgb(238, 242, 240); background: transparent !important; }
 [data-theme='dark'] .theme-doc-markdown tbody tr { border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
 
 /* ═══════════════════════════════════════════════════════════
