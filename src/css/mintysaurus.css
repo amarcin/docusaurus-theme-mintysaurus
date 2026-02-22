@@ -23,6 +23,7 @@
   --ifm-font-family-monospace: 'Geist Mono', Menlo, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Courier New', monospace;
   --ifm-font-size-base: 16px;
   --ifm-line-height-base: 1.75;
+  --ifm-font-color-base: var(--mintlify-body-color);
   --ifm-heading-font-weight: 600;
   --ifm-font-weight-bold: 600;
 
@@ -137,7 +138,7 @@ body { letter-spacing: normal; -webkit-font-smoothing: antialiased; -moz-osx-fon
 .navbar__inner { max-width: 100%; }
 .navbar__brand { margin-right: 1.5rem; }
 .navbar__logo { display: none; }
-.navbar__title { font-weight: 600; font-size: 0.9375rem; letter-spacing: -0.02em; }
+.navbar__title { font-weight: 400; font-size: 1rem; letter-spacing: normal; }
 .navbar__link { font-size: 0.875rem; font-weight: 500; color: var(--mintlify-muted-light); padding: 0.375rem 0.75rem; border-radius: 6px; transition: all 0.15s; }
 .navbar__link:hover { color: var(--mintlify-heading-color); background: rgba(0, 0, 0, 0.04); }
 [data-theme='dark'] .navbar__link:hover { background: rgba(255, 255, 255, 0.06); }
@@ -211,7 +212,7 @@ body { letter-spacing: normal; -webkit-font-smoothing: antialiased; -moz-osx-fon
     padding-top: 40px;
     font-size: 14px;
   }
-  .mintysaurus-toc > div { padding: 0; }
+  .mintysaurus-toc > div { position: sticky; top: 0; padding: 0; }
 }
 
 /* Hide TOC and center content at narrower desktop widths (matches Almond ~1260px) */
@@ -387,7 +388,7 @@ button[class*='copyButton'] { border-radius: 6px; }
    ═══════════════════════════════════════════════════════════ */
 
 .pagination-nav { margin-top: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.pagination-nav__link { border-radius: 12px; border: 1px solid var(--mintlify-border); padding: 0.75rem 1rem; transition: all 0.15s; display: flex; flex-direction: column-reverse; color: var(--mintlify-muted-light); }
+.pagination-nav__link { border-radius: 12px; border: 1px solid var(--mintlify-border); padding: 0.75rem 1rem; transition: all 0.15s; display: flex; flex-direction: column; color: var(--mintlify-muted-light); }
 .pagination-nav__link:hover { border-color: rgb(180, 185, 185) !important; }
 [data-theme='dark'] .pagination-nav__link:hover { border-color: rgba(255, 255, 255, 0.15); }
 .pagination-nav__sublabel { font-size: 0.875rem; font-weight: 400; color: var(--mintlify-muted-light); margin-top: 0; text-transform: none; letter-spacing: normal; }
@@ -419,7 +420,7 @@ body:has([class*='docsWrapper']) .theme-layout-footer { display: none; }
    ADMONITIONS
    ═══════════════════════════════════════════════════════════ */
 
-.theme-admonition { border-radius: 16px; border-left-width: 1px; font-size: 1rem; padding: 1rem 1.25rem; display: flex; }
+.theme-admonition { border-radius: 16px; border-left-width: 1px; font-size: 1rem; padding: 1rem 1.25rem; display: flex; gap: 12px; }
 .theme-admonition [class*='admonitionHeading'] { display: flex; align-items: center; gap: 8px; }
 
 /* ═══════════════════════════════════════════════════════════

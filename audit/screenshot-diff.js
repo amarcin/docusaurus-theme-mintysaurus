@@ -48,8 +48,7 @@ const REGIONS = {
 
 async function closeAssistant(page) {
   await page.evaluate(`localStorage.setItem("chat-assistant-sheet-open","false")`);
-  await page.evaluate(`location.reload()`);
-  await new Promise(r => setTimeout(r, 5000));
+  await page.reload(3000);
 }
 
 async function getRect(page, selector) {
@@ -155,37 +154,53 @@ async function main() {
     const isDesktop = bp.width >= 997;
     const regionDefs = isDesktop ? REGIONS.desktop : REGIONS.mobile;
 
-    // Open both pages (kept open across scroll positions)
+    // Capture Almond (one page at a time to avoid resource exhaustion)
     console.error('  Opening Almond...');
     const almond = await openPage(ALMOND_URL, bp.width, bp.height);
     await closeAssistant(almond);
+    const almondCaptures = [];
+    for (const sp of SCROLL_POSITIONS) {
+      if (sp.frac > 0) {
+        await almond.evaluate(`${SCROLL_ALMOND}(${sp.frac})`);
+        await new Promise(r => setTimeout(r, 500));
+      }
+      const rects = {};
+      for (const region of regionDefs) rects[region.name] = await getRect(almond, region.almond);
+      console.error(`  Capturing Almond${sp.suffix || ' top'}...`);
+      const b64 = (await almond.screenshot()).toString('base64');
+      almondCaptures.push({ sp, rects, b64 });
+    }
+    await almond.destroy();
+
+    // Capture Docusaurus
     console.error('  Opening Docusaurus...');
     const doc = await openPage(DOC_URL, bp.width, bp.height);
     await new Promise(r => setTimeout(r, 1000));
-
+    const docCaptures = [];
     for (const sp of SCROLL_POSITIONS) {
       if (sp.frac > 0) {
-        console.error(`  Scrolling to ${sp.frac * 100}%...`);
-        await almond.evaluate(`${SCROLL_ALMOND}(${sp.frac})`);
         await doc.evaluate(`${SCROLL_DOC}(${sp.frac})`);
         await new Promise(r => setTimeout(r, 500));
       }
+      const rects = {};
+      for (const region of regionDefs) rects[region.name] = await getRect(doc, region.doc);
+      console.error(`  Capturing Docusaurus${sp.suffix || ' top'}...`);
+      const b64 = (await doc.screenshot()).toString('base64');
+      docCaptures.push({ sp, rects, b64 });
+    }
+    await doc.destroy();
 
-      const almondRects = {};
-      const docRects = {};
-      for (const region of regionDefs) {
-        almondRects[region.name] = await getRect(almond, region.almond);
-        docRects[region.name] = await getRect(doc, region.doc);
-      }
-
-      console.error(`  Capturing${sp.suffix || ' top'}...`);
-      const aB64 = (await almond.screenshot()).toString('base64');
-      const dB64 = (await doc.screenshot()).toString('base64');
+    // Diff captured data
+    for (let i = 0; i < SCROLL_POSITIONS.length; i++) {
+      const sp = SCROLL_POSITIONS[i];
+      const aB64 = almondCaptures[i].b64;
+      const dB64 = docCaptures[i].b64;
+      const almondRects = almondCaptures[i].rects;
+      const docRects = docCaptures[i].rects;
 
       fs.writeFileSync(path.join(SHOTS_DIR, `diff-almond-${bp.name}${sp.suffix}.png`), Buffer.from(aB64, 'base64'));
       fs.writeFileSync(path.join(SHOTS_DIR, `diff-doc-${bp.name}${sp.suffix}.png`), Buffer.from(dB64, 'base64'));
 
-      // Diff each region
       for (const region of regionDefs) {
         const aRect = almondRects[region.name];
         const dRect = docRects[region.name];
@@ -244,9 +259,6 @@ async function main() {
         results.push({ breakpoint: bp.name, region: `full-page${sp.suffix}`, diffPercent: null, detail: e.message });
       }
     }
-
-    await almond.destroy();
-    await doc.destroy();
   }
 
   if (jsonOutput) {

@@ -1,7 +1,7 @@
 // Minimal CDP client using Node 22 built-in WebSocket
 const http = require('http');
 
-const CHROMIUM_IP = process.env.CHROMIUM_IP || '172.18.0.15';
+const CHROMIUM_IP = process.env.CHROMIUM_IP || '172.18.0.9';
 const CDP_PORT = process.env.CDP_PORT || 9223;
 
 function httpGet(url) {
@@ -153,7 +153,17 @@ async function openPage(url, width = 1440, height = 900) {
     return true;
   }
 
-  return { evaluate, screenshot, destroy, hover, scrollTo, click, targetId };
+  async function reload(waitMs = 5000) {
+    const loadP = new Promise(resolve => {
+      const timer = setTimeout(() => resolve('timeout'), 15000);
+      page.on('Page.loadEventFired', () => { clearTimeout(timer); resolve('loaded'); });
+    });
+    await page.send('Page.reload');
+    await loadP;
+    await new Promise(r => setTimeout(r, waitMs));
+  }
+
+  return { evaluate, screenshot, destroy, hover, scrollTo, click, reload, targetId };
 }
 
 module.exports = { openPage };
