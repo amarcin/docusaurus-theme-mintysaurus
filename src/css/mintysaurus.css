@@ -221,7 +221,7 @@ body { letter-spacing: normal; -webkit-font-smoothing: antialiased; -moz-osx-fon
     top: 0;
     width: 264px;
     max-width: 264px;
-    padding-top: 40px;
+    padding-top: 12px;
     font-size: 14px;
   }
   .mintysaurus-toc > div { position: sticky; top: 0; padding: 0; }
@@ -377,14 +377,17 @@ code { background: var(--ifm-code-background); border: none; font-size: var(--if
 [data-theme='dark'] .table-of-contents li { border-left-color: transparent; }
 .table-of-contents__link { font-size: 0.875rem; font-weight: 500; line-height: 24px; display: block; padding: 4px 0 4px 16px; border-left: 1px solid rgba(10, 14, 14, 0.05); color: var(--mintlify-muted); transition: all 0.15s; }
 [data-theme='dark'] .table-of-contents__link { border-left-color: rgba(255, 255, 255, 0.05); }
-.table-of-contents__link:hover { color: var(--mintlify-heading-color); text-decoration: none; }
-[data-theme='dark'] .table-of-contents__link:hover { color: var(--mintlify-heading-color); }
+.table-of-contents__link:hover { color: var(--mintlify-heading-color); border-left-color: rgba(10, 14, 14, 0.2); text-decoration: none; }
+[data-theme='dark'] .table-of-contents__link:hover { color: var(--mintlify-heading-color); border-left-color: rgba(255, 255, 255, 0.2); }
 .table-of-contents__link--active,
 .table-of-contents__link--active:hover { font-weight: 500; border-left: 1px solid var(--ifm-color-primary); color: var(--ifm-color-primary); }
-.table-of-contents li.toc-h3 { border-left: 1px solid rgba(10, 14, 14, 0.05); }
+/* H3+ items: indented, lighter, border on li not link */
+.table-of-contents li.toc-h3 { padding-left: 16px; border-left: 1px solid rgba(10, 14, 14, 0.05); }
 [data-theme='dark'] .table-of-contents li.toc-h3 { border-left-color: rgba(255, 255, 255, 0.05); }
+.table-of-contents li.toc-h3:hover { border-left-color: rgba(10, 14, 14, 0.2); }
+[data-theme='dark'] .table-of-contents li.toc-h3:hover { border-left-color: rgba(255, 255, 255, 0.2); }
 .table-of-contents li.toc-h3 .table-of-contents__link { padding-left: 16px; font-weight: 400; color: var(--mintlify-muted-light); border-left: none; }
-.table-of-contents li.toc-h3 .table-of-contents__link:hover { color: var(--mintlify-heading-color); }
+.table-of-contents li.toc-h3 .table-of-contents__link:hover { color: var(--mintlify-heading-color); border-left: none; }
 [data-theme='dark'] .table-of-contents li.toc-h3 .table-of-contents__link { color: var(--mintlify-muted); }
 
 /* ═══════════════════════════════════════════════════════════
