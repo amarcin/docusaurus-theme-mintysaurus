@@ -386,6 +386,7 @@ code { background: var(--ifm-code-background); border: none; font-size: var(--if
 [data-theme='dark'] .table-of-contents li.toc-h3 { border-left-color: rgba(255, 255, 255, 0.05); }
 .table-of-contents li.toc-h3:hover { border-left-color: rgba(10, 14, 14, 0.2); }
 [data-theme='dark'] .table-of-contents li.toc-h3:hover { border-left-color: rgba(255, 255, 255, 0.2); }
+.table-of-contents li.toc-h3:has(.table-of-contents__link--active) { border-left-color: var(--ifm-color-primary); }
 .table-of-contents li.toc-h3 .table-of-contents__link { padding-left: 16px; font-weight: 400; color: var(--mintlify-muted-light); border-left: none; }
 .table-of-contents li.toc-h3 .table-of-contents__link:hover { color: var(--mintlify-heading-color); border-left: none; }
 .table-of-contents li.toc-h3 .table-of-contents__link--active,
