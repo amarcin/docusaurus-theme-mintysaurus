@@ -456,7 +456,43 @@ body:has([class*='docsWrapper']) .theme-layout-footer { display: none; }
    ═══════════════════════════════════════════════════════════ */
 
 .theme-admonition { border-radius: 16px; border-width: 1px; border-style: solid; font-size: 1rem; padding: 1rem 1.25rem; display: flex; gap: 12px; margin: 16px 0; }
-.theme-admonition [class*='admonitionHeading'] { display: none; }
+.theme-admonition [class*='admonitionHeading'] { display: flex; align-items: center; margin-bottom: 0; font-weight: normal; font-size: 0; }
+.theme-admonition [class*='admonitionHeading'] [class*='admonitionIcon'] { font-size: 1rem; display: flex; }
+.theme-admonition [class*='admonitionHeading'] [class*='admonitionIcon'] svg { width: 16px; height: 16px; }
+.theme-admonition [class*='admonitionContent'] p:first-child { margin-top: 0; }
+.theme-admonition [class*='admonitionContent'] p:last-child { margin-bottom: 0; }
+
+/* Note — blue */
+.theme-admonition-note { background: rgb(239, 246, 255); border-color: rgb(191, 219, 254); }
+.theme-admonition-note [class*='admonitionIcon'] { color: rgb(30, 64, 175); }
+
+/* Info — neutral/gray */
+.theme-admonition-info { background: rgb(250, 250, 250); border-color: rgb(229, 229, 229); }
+.theme-admonition-info [class*='admonitionIcon'] { color: rgb(38, 38, 38); }
+
+/* Tip — green */
+.theme-admonition-tip { background: rgb(240, 253, 244); border-color: rgb(187, 247, 208); }
+.theme-admonition-tip [class*='admonitionIcon'] { color: rgb(22, 101, 52); }
+
+/* Warning / Caution — yellow */
+.theme-admonition-warning, .theme-admonition-caution { background: rgb(254, 252, 232); border-color: rgb(254, 240, 138); }
+.theme-admonition-warning [class*='admonitionIcon'], .theme-admonition-caution [class*='admonitionIcon'] { color: rgb(133, 77, 14); }
+
+/* Danger — red */
+.theme-admonition-danger { background: rgb(254, 242, 242); border-color: rgb(254, 202, 202); }
+.theme-admonition-danger [class*='admonitionIcon'] { color: rgb(153, 27, 27); }
+
+/* Dark mode overrides */
+[data-theme='dark'] .theme-admonition-note { background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3); }
+[data-theme='dark'] .theme-admonition-note [class*='admonitionIcon'] { color: rgb(147, 197, 253); }
+[data-theme='dark'] .theme-admonition-info { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.1); }
+[data-theme='dark'] .theme-admonition-info [class*='admonitionIcon'] { color: rgb(212, 212, 212); }
+[data-theme='dark'] .theme-admonition-tip { background: rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.2); }
+[data-theme='dark'] .theme-admonition-tip [class*='admonitionIcon'] { color: rgb(134, 239, 172); }
+[data-theme='dark'] .theme-admonition-warning, [data-theme='dark'] .theme-admonition-caution { background: rgba(234, 179, 8, 0.1); border-color: rgba(234, 179, 8, 0.2); }
+[data-theme='dark'] .theme-admonition-warning [class*='admonitionIcon'], [data-theme='dark'] .theme-admonition-caution [class*='admonitionIcon'] { color: rgb(253, 224, 71); }
+[data-theme='dark'] .theme-admonition-danger { background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.2); }
+[data-theme='dark'] .theme-admonition-danger [class*='admonitionIcon'] { color: rgb(252, 165, 165); }
 
 /* ═══════════════════════════════════════════════════════════
    DOC CARDS
