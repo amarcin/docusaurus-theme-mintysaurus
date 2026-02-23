@@ -38,26 +38,31 @@ These components override Docusaurus defaults to control layout and content rend
 | Component | Purpose |
 |---|---|
 | `DocRoot/Layout/Main` | Replaces Docusaurus's `<main>` wrapper. Removes the built-in `padding-top--md` and `container` classes that fight CSS overrides. Applies `.mintysaurus-panel` for the inset card. |
-| `DocItem/Layout` | Replaces the `row`/`col`/`col--3` grid with a clean flex layout (`.mintysaurus-content-row`, `.mintysaurus-article`, `.mintysaurus-toc`). |
+| `DocItem/Layout` | Replaces the `row`/`col`/`col--3` grid with a clean flex layout (`.mintysaurus-content-row`, `.mintysaurus-article`, `.mintysaurus-toc`). Includes the doc footer (GitHub link + "Powered by mintysaurus"). |
 | `DocItem/Content` | Adds the category eyebrow label and page description below the title. Reads `sidebar_group` from the sidebar breadcrumbs. |
 | `DocItem/Footer` | Minimal footer — removes "Edit this page" and metadata row. |
 | `DocSidebar/Desktop/Content` | Moves the search bar from the navbar into the sidebar, matching Mintlify's layout. |
 | `DocBreadcrumbs` | Returns null — Mintlify/Almond doesn't show breadcrumbs. |
-| `TOC` | Custom "On this page" heading with filter icon. |
-| `TOCItems` + `TOCItems/Tree` | Renders TOC links with left-border active indicator. |
+| `Navbar/Layout` | Adds `mintysaurus-navbar` class for styling hooks. |
+| `TOC` | Custom "On this page" heading with filter icon, clickable to scroll TOC to top. |
+| `TOCItems` + `TOCItems/Tree` | Flat TOC renderer with left-border active indicator. When an H3 is active, both the H3 and its parent H2 are highlighted. |
 | `Heading` | Adds anchor links on hover. |
-| `Footer/Layout` | Minimal centered footer. |
+| `Icon/Copy` | Outlined copy icon (stroke-based SVG, no fill). |
+| `PaginatorNavLink` | Reversed label order (title above sublabel). |
+| `Footer/Layout` | Minimal centered footer, hidden on docs pages. |
 
 ### CSS Structure
 
-All styles live in `src/css/mintysaurus.css` (~430 lines). Key sections:
+All styles live in `src/css/mintysaurus.css` (~630 lines). Key sections:
 
 - **Variables** — color palette, typography, spacing, all as CSS custom properties
 - **Inset panel** — the signature Almond layout: sidebar on page background, content in a bordered rounded card
 - **Sidebar** — 264px width, 14px links, 12px border-radius active state, group headers with icons
 - **Content area** — 48px/64px panel padding, 48px inner padding-left, 576px max content width
 - **Typography** — Inter font, 30px H1, 24px H2, 16px body, 18px subtitle
-- **TOC** — 14px links, primary-colored active with left border, transparent border on inactive
+- **TOC** — 14px links, primary-colored active with left border, H3 indentation, dual H2+H3 highlighting
+- **Admonitions** — 5 types (note/tip/info/warning/danger) with colored borders, icons, and text
+- **Code blocks** — 14px, rounded borders, title bar, outlined copy icon
 - **Dark mode** — full dark palette via `[data-theme='dark']`
 
 ### Layout Chain (Desktop, 1440px)
@@ -93,19 +98,24 @@ src/
 ├── sidebar.js                            ← Custom sidebar generator (groups, ordering)
 ├── css/
 │   └── mintysaurus.css                   ← All styles
+├── js/
+│   └── clipboard-polyfill.js             ← Clipboard API polyfill for non-HTTPS
 └── theme/
     ├── DocRoot/Layout/Main/index.js      ← Panel wrapper (swizzled)
-    ├── DocItem/Layout/index.js           ← Content + TOC flex layout (swizzled)
+    ├── DocItem/Layout/index.js           ← Content + TOC flex layout + doc footer (swizzled)
     ├── DocItem/Content/index.js          ← Eyebrow + description (swizzled)
     ├── DocItem/Footer/index.js           ← Minimal footer (swizzled)
     ├── DocSidebar/Desktop/Content/index.js ← Search in sidebar (swizzled)
     ├── DocBreadcrumbs/index.js           ← Disabled (swizzled)
+    ├── Navbar/Layout/index.js            ← Adds mintysaurus-navbar class (swizzled)
     ├── TOC/index.js                      ← "On this page" heading (swizzled)
-    ├── TOCItems/index.js                 ← TOC link list (swizzled)
-    ├── TOCItems/Tree.js                  ← TOC link rendering (swizzled)
     ├── TOC/styles.module.css             ← TOC styles
+    ├── TOCItems/index.js                 ← TOC highlight logic (swizzled)
+    ├── TOCItems/Tree.js                  ← Flat TOC renderer (swizzled)
     ├── Heading/index.js                  ← Anchor headings (swizzled)
     ├── Heading/styles.module.css         ← Heading styles
+    ├── Icon/Copy/index.js               ← Outlined copy icon (swizzled)
+    ├── PaginatorNavLink/index.js         ← Reversed label order (swizzled)
     └── Footer/Layout/index.js            ← Minimal footer (swizzled)
 ```
 
@@ -295,7 +305,11 @@ This theme is matched against Mintlify's [Almond starter kit](https://almond.min
 - Body: 16px/28px weight 400
 - Subtitle: 18px/28px weight 400
 - Eyebrow: 14px weight 600, primary color
-- TOC: 14px, active weight 500 with 1px left border in primary color
+- TOC: 14px, active weight 500 with 1px left border in primary color, H3s indented 16px, dual H2+H3 active highlighting
+- Admonitions: 5 types with colored left border, matching icon/text colors, 14px font
+- Code blocks: outlined copy icon (always visible), no background on inline `<code>`
+- Tables: full-width columns, transparent header bg, no zebra striping
+- Doc footer: GitHub icon + "Powered by mintysaurus", border-top separator
 
 ## Requirements
 

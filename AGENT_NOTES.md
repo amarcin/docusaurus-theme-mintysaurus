@@ -82,7 +82,7 @@ If you add any scroll-dependent feature, attach the listener to the panel elemen
 
 ### 3. TOC border alignment
 
-The border is on each `<a>` tag (not `<li>` or `<ul>`). For h3 items, text indents via `padding-left: 2rem` on the `<a>`, but the border stays at the left edge. Do NOT add `padding-left` to `.toc-h3` `<li>` elements — that breaks the straight line.
+For H2 items, the left border is on the `<a>` tag. For H3 items (`li.toc-h3`), the border is on the `<li>` — the `<a>` inside has `border-left: none`. The active state uses `:has()` on the `<li>` to turn the border green: `li.toc-h3:has(.table-of-contents__link--active)`. Both the active H3 and its parent H2 get highlighted simultaneously.
 
 ### 4. No CSS transitions on the TOC border
 
