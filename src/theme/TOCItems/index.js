@@ -44,22 +44,21 @@ function usePanelTOCHighlight(config) {
       }
 
       const activeLink = links.find(l => active && active.id === decodeURIComponent(l.href.substring(l.href.indexOf('#') + 1)));
-      // If active link is an H3+, highlight its parent H2 instead
-      let highlightLink = activeLink;
-      if (highlightLink && highlightLink.closest('li.toc-h3')) {
-        let prev = highlightLink.closest('li').previousElementSibling;
+      // Find parent H2 link if active is an H3+
+      let parentH2Link = null;
+      if (activeLink && activeLink.closest('li.toc-h3')) {
+        let prev = activeLink.closest('li').previousElementSibling;
         while (prev && prev.classList.contains('toc-h3')) prev = prev.previousElementSibling;
-        if (prev) highlightLink = prev.querySelector('.' + linkClassName);
+        if (prev) parentH2Link = prev.querySelector('a');
       }
       links.forEach(l => {
-        if (l === highlightLink) {
-          if (lastActiveRef.current && lastActiveRef.current !== l) lastActiveRef.current.classList.remove(linkActiveClassName);
+        if (l === activeLink || l === parentH2Link) {
           l.classList.add(linkActiveClassName);
-          lastActiveRef.current = l;
         } else {
           l.classList.remove(linkActiveClassName);
         }
       });
+      lastActiveRef.current = activeLink;
     }
 
     const target = panel === document ? document : panel;
