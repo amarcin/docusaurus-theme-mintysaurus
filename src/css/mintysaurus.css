@@ -410,7 +410,7 @@ div[class*='codeBlockContainer']:has(div[class*='codeBlockTitle']) div[class*='b
    PAGINATION
    ═══════════════════════════════════════════════════════════ */
 
-.pagination-nav { margin-top: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.pagination-nav { margin-top: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .pagination-nav__link { border-radius: 12px; border: 1px solid var(--mintlify-border); padding: 0.75rem 1rem; transition: all 0.15s; display: flex; flex-direction: column; color: var(--mintlify-muted-light); }
 .pagination-nav__link:hover { border-color: rgb(180, 185, 185) !important; }
 [data-theme='dark'] .pagination-nav__link:hover { border-color: rgba(255, 255, 255, 0.15); }
